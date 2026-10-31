@@ -29,8 +29,10 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .card:hover{transform:translateY(-4px) scale(1.02)}
 .art{aspect-ratio:1/1.02;border-radius:15px 15px 0 0;background:var(--bg);overflow:hidden;display:grid;place-items:center}
 .price{border-top:4px solid #fff;border-radius:0 0 15px 15px;background:linear-gradient(#4a9af2,#2f84ea);height:58px;display:flex;justify-content:center;align-items:center;gap:10px;font:400 28px 'Titan One';text-shadow:0 3px 0 rgba(0,30,110,.45)}
-.pi{display:grid;place-items:center;width:100%;height:100%}.pi img{width:100%;height:100%;object-fit:cover;display:block}
-.pi.nf::after{content:attr(data-l);font:400 26px/1 'Titan One';text-align:center;padding:10px;text-shadow:0 3px 0 rgba(0,0,0,.4);text-transform:uppercase}
+.pi{display:grid;place-items:center;width:100%;height:100%}.pi img{width:88%;height:88%;object-fit:contain;display:block;transform:rotate(7deg);filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.art,.pf{position:relative}
+.pic{position:absolute;right:3%;bottom:3%;width:22%;height:22%;opacity:.35;filter:brightness(0) invert(1);pointer-events:none}.pic img{width:100%;height:100%;object-fit:contain;display:block}
+.pi.nf::after{display:block;transform:rotate(7deg);content:attr(data-l);font:400 26px/1 'Titan One';text-align:center;padding:10px;text-shadow:0 3px 0 rgba(0,0,0,.4);text-transform:uppercase}
 .bi{display:grid;place-items:center;width:100%;height:100%;border-radius:14px}.bi img{width:100%;height:100%;object-fit:contain}
 .bi.nf{background:linear-gradient(var(--c),color-mix(in srgb,var(--c) 70%,#000));color:#fff}.bi.nf::after{content:attr(data-l);font:400 30px 'Titan One'}
 .lk-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
@@ -194,12 +196,12 @@ const FALL=F.flatMap(f=>f.list);
 const ORD_M=['spooky','dog','lunch','bug','pirate','outback','ice-monsters','dino','aquatic','safari','bot','space','medieval','wonderland','breakfast','autumn','blizzard'];
 const ORD_L=['medieval','wonderland','breakfast','space','bot','safari','aquatic','dino','ice-monsters','outback','pirate','bug','lunch','dog','spooky','autumn','blizzard'];
 const PM=ORD_M.map(id=>P.find(p=>p.id===id)),PL=ORD_L.map(id=>P.find(p=>p.id===id));
-const CODES=[...P.map(p=>p.code),...P.map(p=>p.id+'-bag'),...P.map(p=>p.id+'-icon'),...ALL.map(b=>b.code),...FALL.map(b=>b.code)];
+const CODES=[...P.map(p=>p.code),...P.map(p=>p.id+'-icon'),...ALL.map(b=>b.code),...FALL.map(b=>b.code)];
 /*END-DATA*/
 function nx(i){const n=+i.dataset.i+1;if(n<EX.length){i.dataset.i=n;i.src=DIR+i.dataset.c+'.'+EX[n]}else{i.parentElement.classList.add('nf');i.remove()}}
 const img=c=>`<img src="${DIR}${c}.png" data-c="${c}" data-i="0" alt="" onerror="nx(this)">`;
 const bimg=b=>`<span class="bi" style="--c:${rar(b.k).c}" data-l="${b.n[0]}">${img(b.code)}</span>`;
-const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span>`;
+const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span><span class="pic">${img(p.id+'-icon')}</span>`;
 let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x)S=Object.assign(S,x)}catch(e){}
 const save=()=>{try{localStorage.setItem('mk4',JSON.stringify(S))}catch(e){}};
 const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(3))+'%',cnt=b=>S.inv[key(b)]||0;
@@ -295,7 +297,7 @@ function play(p,pulls,i){
  st.className='op'+(ri>=3?' rays':'');st.style.cssText='';st.onkeydown=null;
  const cols=Math.max(6,Math.round(innerWidth/130)),w=innerWidth/cols,N=cols*(Math.ceil(innerHeight/w)+1);
  let tl='';for(let j=0;j<N;j++)tl+=`<i class="tl" style="background:${rnd(PURPLE)}"></i>`;
- st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.id+'-bag')}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd" style="--pb:${p.bg}"><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><canvas id="cv"></canvas><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
+ st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd" style="--pb:${p.bg}"><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><canvas id="cv"></canvas><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
  const flash=()=>{const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')};
  if(i===0&&k)flash();
  const g2=st.querySelector('.grid2'),tls=[...g2.children],hint=$('#hint'),pal=PAL[g.k];
