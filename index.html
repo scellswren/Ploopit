@@ -129,6 +129,17 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 @keyframes blink{50%{opacity:.35}}
 .op .ctr{position:absolute;top:18px;left:50%;transform:translateX(-50%);font:400 22px 'Titan One';opacity:.8}
 @media(prefers-reduced-motion:reduce){.op.show .cardw{opacity:1;transform:translate(-50%,-50%)}.op.tear .bagbox{opacity:0}}
+
+.bgl{position:absolute;inset:0;display:block;pointer-events:none}.bgl img{width:100%;height:100%;object-fit:cover;display:block}
+.pm.bm{grid-template-columns:minmax(0,360px) 1fr;align-items:start}
+.bmf{position:relative;aspect-ratio:1;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 55%,#0b1a3a),#0b1a3a)}
+.bmb{position:absolute;left:25%;top:28%;width:50%;height:50%}
+.bsub{font:900 28px Nunito;margin:0 0 14px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.pchip2{display:inline-flex;gap:8px;align-items:center;background:rgba(0,0,0,.22);border-radius:12px;padding:6px 12px;font:900 18px Nunito}
+.qr2{display:flex;gap:12px;align-items:center;font:900 26px Nunito;margin:0 0 10px}
+.qr2 input{width:84px;font:900 28px Nunito;text-align:center;color:#fff;background:transparent;border:4px solid rgba(255,255,255,.35);border-radius:12px;padding:4px}
+@media(max-width:700px){.pm.bm{grid-template-columns:1fr}}
 </style></head><body>
 <div class="top"><button class="chip" id="prof" aria-label="Profile"><span class="av" id="av"></span><span id="un">Player</span><span>⌄</span></button><div class="chip s"><span class="coin"></span><span id="tok">0</span></div></div>
 <div class="wrap"><div class="head"><h1 id="ttl">Market</h1>
@@ -137,9 +148,9 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 <div id="ov" role="dialog" aria-modal="true"><div id="stage"></div></div>
 <div id="flash"></div><div class="sr" id="live" aria-live="polite"></div>
 <script>
-// ===== IMAGES: put files in an "images" folder next to this HTML file (png, jpg, jpeg or webp) =====
+// ===== IMAGES: put files in an "images" folder next to this HTML file (png, svg, jpg, jpeg or webp) =====
 // packs: <packid>-pack.png   blooks: <packid>_<blook-name>.png   (full list in image-codes.txt)
-const DIR='images/',EX=['png','jpg','jpeg','webp'];
+const DIR='images/',EX=['png','svg','jpg','jpeg','webp'];
 const R=[{k:'U',n:'Uncommon',c:'var(--U)',v:5,s:1},{k:'R',n:'Rare',c:'var(--R)',v:20,s:3},{k:'E',n:'Epic',c:'var(--E)',v:75,s:10},{k:'L',n:'Legendary',c:'var(--L)',v:200,s:30},{k:'C',n:'Chroma',c:'var(--C)',v:300,s:60}];
 const COM={k:'Cm',n:'Common',c:'#9aa5b1',v:0,s:0};
 const rar=k=>k==='Cm'?COM:R.find(r=>r.k===k);
@@ -196,7 +207,7 @@ const FALL=F.flatMap(f=>f.list);
 const ORD_M=['spooky','dog','lunch','bug','pirate','outback','ice-monsters','dino','aquatic','safari','bot','space','medieval','wonderland','breakfast','autumn','blizzard'];
 const ORD_L=['medieval','wonderland','breakfast','space','bot','safari','aquatic','dino','ice-monsters','outback','pirate','bug','lunch','dog','spooky','autumn','blizzard'];
 const PM=ORD_M.map(id=>P.find(p=>p.id===id)),PL=ORD_L.map(id=>P.find(p=>p.id===id));
-const CODES=[...P.map(p=>p.code),...P.map(p=>p.id+'-icon'),...ALL.map(b=>b.code),...FALL.map(b=>b.code)];
+const CODES=[...P.map(p=>p.code),...P.map(p=>p.id+'-icon'),...P.map(p=>p.id+'-bg'),...F.map(f=>f.id+'-bg'),...ALL.map(b=>b.code),...FALL.map(b=>b.code)];
 /*END-DATA*/
 function nx(i){const n=+i.dataset.i+1;if(n<EX.length){i.dataset.i=n;i.src=DIR+i.dataset.c+'.'+EX[n]}else{i.parentElement.classList.add('nf');i.remove()}}
 const img=c=>`<img src="${DIR}${c}.png" data-c="${c}" data-i="0" alt="" onerror="nx(this)">`;
@@ -209,7 +220,7 @@ let tab='shop',showFree=false,showPacks=true;
 const byCode=c=>ALL.find(b=>b.code===c)||FALL.find(b=>b.code===c);
 function setTab(t){tab=t;$('#n-shop').style.opacity=t==='shop'?1:.7;$('#n-col').style.opacity=t==='col'?1:.7;$('#ttl').textContent=t==='shop'?'Market':'My Blooks';render()}
 $('#n-shop').onclick=()=>setTab('shop');$('#n-col').onclick=()=>setTab('col');$('#n-bonus').onclick=()=>{S.tok+=100;save();render()};$('#prof').onclick=profile;
-function gem(k){const f={U:'#35c24a',R:'#2a7fe0',E:'#e0452a',L:'#ff8a1a',C:'#1fc8b8'}[k];const d={U:'<polygon points="4,6 36,6 20,36"',R:'<polygon points="20,2 38,20 20,38 2,20"',E:'<polygon points="12,4 28,4 38,20 28,36 12,36 2,20"',L:'<polygon points="20,3 37,14 30,36 10,36 3,14"',C:'<rect x="5" y="5" width="30" height="30" rx="7"'}[k];return `<svg width="42" height="42" viewBox="0 0 40 40" aria-hidden="true">${d} fill="${f}" stroke="rgba(0,0,0,.35)" stroke-width="3" stroke-linejoin="round"/><polygon points="12,10 22,10 16,18" fill="rgba(255,255,255,.45)"/></svg>`}
+function gem(k){const f={Cm:'#a8b2bd',U:'#35c24a',R:'#2a7fe0',E:'#e0452a',L:'#ff8a1a',C:'#1fc8b8'}[k];const d={Cm:'<polygon points="20,4 36,20 20,36 4,20"',U:'<polygon points="4,6 36,6 20,36"',R:'<polygon points="20,2 38,20 20,38 2,20"',E:'<polygon points="12,4 28,4 38,20 28,36 12,36 2,20"',L:'<polygon points="20,3 37,14 30,36 10,36 3,14"',C:'<rect x="5" y="5" width="30" height="30" rx="7"'}[k];return `<svg width="42" height="42" viewBox="0 0 40 40" aria-hidden="true">${d} fill="${f}" stroke="rgba(0,0,0,.35)" stroke-width="3" stroke-linejoin="round"/><polygon points="12,10 22,10 16,18" fill="rgba(255,255,255,.45)"/></svg>`}
 const lockSvg='<svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true"><path d="M8 14V10a7 7 0 0114 0v4" fill="none" stroke="#fff" stroke-width="4"/><rect x="3" y="14" width="24" height="17" rx="4" fill="#fff"/><circle cx="15" cy="22" r="3" fill="#000"/></svg>';
 function render(){
  $('#tok').textContent=S.tok.toLocaleString();$('#un').textContent=S.name;
@@ -232,10 +243,21 @@ const show=(h,wide)=>{clr();$('#ov').style.background='';const sg=$('#stage');sg
 function close(){clr();$('#ov').style.background='';$('#stage').onclick=null;$('#stage').onkeydown=null;$('#stage').removeAttribute('tabindex');$('#ov').classList.remove('on');render()}
 const xb=()=>`<button class="x" id="cx" aria-label="Close">✕</button>`;
 function blookModal(b){
- const fr=!!b.free,n=fr?1:cnt(b),r=rar(b.k),dup=fr?0:Math.max(0,n-1);
- show(`<div class="pm"><div class="pf" style="--bg:linear-gradient(${r.c},color-mix(in srgb,${r.c} 55%,#000))"><div style="width:78%;height:78%">${bimg(b)}</div></div><div>${xb()}<h2>${b.n}</h2><span class="pchip" style="background:${r.c}">${r.n}</span><p>${b.pack} Pack${fr?' · Free blook':' · '+fmt(b.w)+' chance'}<br>${fr?'Available to everyone':'Owned: '+n+' · Sells for '+r.v+' each'}</p>
- <div class="row" style="justify-content:flex-start"><button class="btn" id="ico">${S.av===b.code?'Current icon':'Use as icon'}</button>${dup?`<button class="btn r" id="sell">Sell ${dup} duplicate${dup>1?'s':''} · ${dup*r.v}</button>`:''}</div></div></div>`,true);
- $('#cx').onclick=close;$('#ico').onclick=()=>{S.av=b.code;save();close()};const s=$('#sell');if(s)s.onclick=()=>{S.tok+=dup*r.v;S.inv[key(b)]=1;save();render();blookModal(b)};
+ const fr=!!b.free,tot=fr?1:cnt(b),r=rar(b.k);let q=1;
+ const draw=()=>{
+  const gs=gem(b.k).replace('width="42" height="42"','width="22" height="22"');
+  show(`<div class="pm bm"><div class="bmf" style="--rc:${r.c}"><span class="bgl">${img(b.pid+'-bg')}</span><div class="bmb">${bimg(b)}</div></div><div>${xb()}<h2>${b.n}</h2><div class="bsub">${b.pack} Pack</div>
+  <div class="chips"><span class="pchip2">${gs}${r.n}</span>${fr?'':`<span class="pchip2"><span class="coin"></span>${r.v}</span>`}</div>
+  ${fr?`<p class="note">Free blooks can't be sold.</p>`:`<div class="qr2"><input id="sq" type="number" min="1" max="${tot}" value="${q}" aria-label="Quantity to sell"><span>/ ${tot} total</span></div>
+  <div class="qb">${[1,5,10].filter(n=>q+n<=tot).map(n=>`<button class="sb" data-a="${n}">+${n}</button>`).join('')}${tot>1&&q!==tot-1?'<button class="sb" data-m="1">One left</button>':''}<button class="sb" data-r="1" aria-label="Reset" ${q===1?'disabled':''}>↺</button></div>
+  <button class="buy" id="sell">Sell ${q} for <span class="coin"></span> ${(q*r.v).toLocaleString()}</button>`}</div></div>`,true);
+  $('#cx').onclick=close;if(fr)return;
+  $('#sq').onchange=e=>{q=Math.max(1,Math.min(tot,Math.floor(+e.target.value)||1));draw()};
+  document.querySelectorAll('#stage [data-a]').forEach(x=>x.onclick=()=>{q=Math.min(tot,q+ +x.dataset.a);draw()});
+  const m=$('#stage [data-m]');if(m)m.onclick=()=>{q=tot-1;draw()};
+  $('#stage [data-r]').onclick=()=>{q=1;draw()};
+  $('#sell').onclick=()=>{S.tok+=q*r.v;const left=tot-q;if(left>0)S.inv[key(b)]=left;else{delete S.inv[key(b)];if(S.av===b.code)S.av=''}save();render();if(left>0){q=1;blookModal(b)}else close()};
+ };draw();
 }
 function profile(){
  const own=[...PL.flatMap(p=>p.list).filter(b=>cnt(b)),...FALL];let pick=S.av;
@@ -297,7 +319,7 @@ function play(p,pulls,i){
  st.className='op'+(ri>=3?' rays':'');st.style.cssText='';st.onkeydown=null;
  const cols=Math.max(6,Math.round(innerWidth/130)),w=innerWidth/cols,N=cols*(Math.ceil(innerHeight/w)+1);
  let tl='';for(let j=0;j<N;j++)tl+=`<i class="tl" style="background:${rnd(PURPLE)}"></i>`;
- st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd" style="--pb:${p.bg}"><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><canvas id="cv"></canvas><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
+ st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd" style="--pb:${p.bg}"><span class="bgl">${img(p.id+'-bg')}</span><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><canvas id="cv"></canvas><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
  const flash=()=>{const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')};
  if(i===0&&k)flash();
  const g2=st.querySelector('.grid2'),tls=[...g2.children],hint=$('#hint'),pal=PAL[g.k];
