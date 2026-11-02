@@ -288,8 +288,8 @@ const BLOOK_ICON_URLS={
  'Apple Juice':DIR+'Apple-Juice.png',
  'Dragon King':DIR+'Dragon-King.png',
  // User-provided Bug Pack PNGs (these must override the default Blooket SVG URLs).
- 'Mosquito':DIR+'bug_mosquito.png',
- 'Stick Bug':DIR+'bug_stick-bug.png'
+ 'Mosquito':DIR+'Mosquito.png',
+ 'Stick Bug':DIR+'Stick-Bug.png'
 };
 const blookIconSlug=b=>BLOOK_ICON_SLUGS[b.n]||b.n.toLowerCase().replace(/[^a-z0-9]/g,'');
 const blookIconSrc=b=>BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${blookIconSlug(b)}.svg`;
