@@ -49,10 +49,13 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .bt.owned .bi{position:absolute;inset:0;width:100%;height:100%;z-index:1;border-radius:0;background:transparent;display:block;overflow:hidden}
 .bt.owned .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;margin:0;transform:none;filter:none}
 .bt .q{position:absolute;left:3px;bottom:3px;z-index:3;min-width:20px;height:20px;border-radius:10px;background:var(--c,#9aa5b1);border:1px solid rgba(255,255,255,.9);color:#fff;font:900 11px/18px Nunito;text-align:center;padding:0 3px;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.35)}
-.bt.l{cursor:default;background:#050505;border:0;border-radius:6px;overflow:hidden;box-shadow:none}
+.bt.l{cursor:default;background:transparent;border:0;border-radius:0;overflow:visible;box-shadow:none}
 .bt.l:hover{transform:none}
-.bt.l .lc{width:100%;height:100%;border-radius:6px;background:#050505;display:grid;place-items:center}
-.bt.l .lc svg{width:27px;height:30px}
+.bt.l .lc{position:relative;width:100%;height:100%;border-radius:0;background:transparent;display:grid;place-items:center;overflow:visible}
+.bt.l .lc .bi{position:absolute;inset:5%;width:90%;height:90%;display:block;background:transparent;overflow:visible}
+.bt.l .lc .bi img{filter:brightness(0) saturate(100%);opacity:.9;transform:none;object-fit:contain;object-position:center}
+.bt.l .lc .bi.nf::after{content:""}
+.bt.l .unknown-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;color:#fff;font:400 29px/1 'Titan One';text-shadow:0 2px 3px rgba(0,0,0,.8);pointer-events:none}
 .bt.sel{outline:3px solid #ffd23f;outline-offset:1px;border-radius:7px;z-index:2}
 .side{background:var(--pur);border-radius:16px;border:4px solid #8a3aa0;padding:112px 18px 22px;position:relative;margin-top:96px;box-shadow:0 6px 0 rgba(60,10,90,.4)}
 .star{position:absolute;left:50%;top:-100px;width:360px;transform:translateX(-50%)}
@@ -211,7 +214,7 @@ const P=[
 {id:'breakfast',n:'Breakfast',cost:20,bg:'#d86a22',bag:'linear-gradient(150deg,#f0e0c0,#d8a870)',rim:'#e87a30',
  b:{U:same(['Toast','Cereal','Yogurt','Breakfast Combo','Orange Juice','Milk'],12.5),R:same(['Waffle','Pancakes'],9),E:[['French Toast',5],['Pizza',2]],L:[],C:[]}}
 ];
-P.forEach(p=>{p.code=p.id+'-pack';p.list=R.flatMap(r=>(p.b[r.k]||[]).map(([n,w])=>({n,k:r.k,w,pack:p.n,pid:p.id,code:p.id+'_'+n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')})))});
+P.forEach(p=>{p.code=p.id+'-pack';p.list=R.flatMap(r=>(p.b[r.k]||[]).map(([n,w])=>({n,k:r.k,w,displayW:(p.id==='space'&&r.k==='C'&&/Astronaut$/.test(n))?.05:w,dropGroup:(p.id==='space'&&r.k==='C'&&/Astronaut$/.test(n))?'Colored Astronaut':null,pack:p.n,pid:p.id,code:p.id+'_'+n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')})))});
 const ALL=P.flatMap(p=>p.list);
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 // the 49 free (Common) blooks from the five free packs
@@ -394,7 +397,7 @@ function render(){
   m.innerHTML='<div class="grid">'+PM.map(p=>`<button class="card" style="--rim:${p.rim}" data-id="${p.id}" aria-label="${p.n} Pack, ${p.cost} tokens"><div class="art" style="--bg:${p.bg}">${pimg(p)}</div><div class="price"><span class="coin"></span>${p.cost}</div></button>`).join('')+'</div>';
   m.querySelectorAll('.card').forEach(b=>b.onclick=()=>packModal(P.find(p=>p.id===b.dataset.id)));return;
  }
- const tile=b=>{const n=cnt(b);return n?`<button class="bt owned ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${lockerArt(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="Locked Blook"><span class="lc">${lockSvg}</span></button>`};
+ const tile=b=>{const n=cnt(b);return n?`<button class="bt owned ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${lockerArt(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="${b.n}, locked"><span class="lc">${bimg(b)}<span class="unknown-mark">?</span></span></button>`};
  const ftile=b=>`<button class="bt owned ${S.av===b.code?'sel':''}" style="--c:${COM.c}" data-c="${b.code}" aria-label="${b.n}, Common">${lockerArt(b)}</button>`;
  const chromas=ALL.filter(b=>b.k==='C'&&cnt(b)>0);
  const chromaSection=chromas.length?`<h2 class="chroma-head">Chroma</h2><div class="bl chroma-list">${chromas.map(tile).join('')}</div>`:'';
@@ -435,10 +438,22 @@ function profile(){
  $('#cx').onclick=close;$('#cc').onclick=close;$('#nm').focus();
  $('#sv').onclick=()=>{S.name=($('#nm').value.trim()||'Player').slice(0,16);S.av=pick;save();close()};
 }
+function marketDropRateRows(p){
+ const rows=[],seen=new Set();
+ for(const b of p.list){
+  if(b.dropGroup){
+   if(seen.has(b.dropGroup))continue;
+   seen.add(b.dropGroup);
+   const total=p.list.filter(x=>x.dropGroup===b.dropGroup).reduce((sum,x)=>sum+x.w,0);
+   rows.push(`<div>${b.dropGroup}: ${fmt(total)}</div>`);
+  }else rows.push(`<div>${b.n}: ${fmt(b.displayW??b.w)}</div>`);
+ }
+ return rows.join('');
+}
 function packModal(p){
  let qty=1,rates=false;
  const draw=()=>{const tot=p.cost*qty,can=S.tok>=tot;
-  show(`<div class="pm">${rates?`<div class="pf rt" style="--bg:${p.bg}"><div class="drl"><h3>Drop Rates</h3>${p.list.map(b=>`<div>${b.n}: ${fmt(b.w)}</div>`).join('')}</div></div>`:`<div class="pf" style="--bg:${p.bg}">${pimg(p)}</div>`}<div>${xb()}<h2>${p.n} Pack</h2><button class="sb" id="dr">${rates?'Hide':'Show'} Drop Rates</button>
+  show(`<div class="pm">${rates?`<div class="pf rt" style="--bg:${p.bg}"><div class="drl"><h3>Drop Rates</h3>${marketDropRateRows(p)}</div></div>`:`<div class="pf" style="--bg:${p.bg}">${pimg(p)}</div>`}<div>${xb()}<h2>${p.n} Pack</h2><button class="sb" id="dr">${rates?'Hide':'Show'} Drop Rates</button>
 
   <div><span class="pchip"><span class="coin"></span>${p.cost}</span></div>
   <div class="qr">Purchase Quantity: <input id="qi" type="number" min="1" max="1000" value="${qty}" aria-label="Quantity"></div>
@@ -491,7 +506,7 @@ function play(p,pulls,i){
  st.className='op'+(ri>=3?' rays':'');st.style.cssText='';st.onkeydown=null;
  const cols=Math.max(6,Math.round(innerWidth/130)),w=innerWidth/cols,N=cols*(Math.ceil(innerHeight/w)+1);
  let tl='';for(let j=0;j<N;j++)tl+=`<i class="tl" style="background:${rnd(PURPLE)}"></i>`;
- st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd"><img class="cd-bg" src="${blookBackgroundSrc(g.pid)}" alt="" aria-hidden="true" onerror="this.style.display='none'"><div class="cd-shade"></div><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
+ st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd"><img class="cd-bg" src="${blookBackgroundSrc(g.pid)}" alt="" aria-hidden="true" onerror="this.style.display='none'"><div class="cd-shade"></div><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.displayW??g.w)}</div></div></div><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
  requestAnimationFrame(()=>requestAnimationFrame(()=>st.querySelectorAll('.bi img').forEach(centerBlookArt)));
  const flash=()=>{const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')};
  if(i===0)flash();
