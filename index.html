@@ -33,23 +33,27 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .art,.pf{position:relative}
 .pic{position:absolute;right:3%;bottom:3%;width:22%;height:22%;opacity:.35;filter:brightness(0) invert(1);pointer-events:none}.pic img{width:100%;height:100%;object-fit:contain;display:block}
 .pi.nf::after{display:block;transform:rotate(7deg);content:attr(data-l);font:400 26px/1 'Titan One';text-align:center;padding:10px;text-shadow:0 3px 0 rgba(0,0,0,.4);text-transform:uppercase}
-.bi{display:grid;place-items:center;width:100%;height:100%;border-radius:14px}.bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
-.bi.nf{background:transparent;color:#fff}.bi.nf::after{content:attr(data-l);font:400 15px/1.1 'Titan One';text-align:center;text-shadow:0 2px 5px rgba(0,0,0,.8);padding:4px}
+.bi{position:relative;display:block;width:100%;height:100%;border-radius:0;overflow:hidden;background:transparent}.bi img{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;display:block}
+.bi.nf{background:transparent;color:#fff;display:grid;place-items:center}.bi.nf::after{content:attr(data-l);font:400 15px/1.1 'Titan One';text-align:center;text-shadow:0 2px 5px rgba(0,0,0,.8);padding:4px}
 .lk-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
-.lpanel{background:var(--pur);border-radius:16px;border:4px solid #8a3aa0;padding:18px 22px;height:calc(100vh - 250px);min-height:420px;overflow:auto;box-shadow:0 6px 0 rgba(60,10,90,.4);scrollbar-color:#fff #8a3aa0}
-.lpanel h2{font:400 34px 'Titan One';margin:6px 0 0;padding-bottom:6px;border-bottom:4px solid #fff;text-shadow:0 3px 0 rgba(60,10,90,.35)}
-.lpanel h2.chroma-head{margin-top:26px;color:#bffaff;border-bottom-color:#28d5ed;text-shadow:0 3px 0 rgba(0,55,90,.45)}
-.bl.chroma-list{padding:12px 10px;border:2px solid rgba(75,225,245,.55);border-radius:14px;background:rgba(0,25,55,.18)}
-.bl{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 28px}
-.bt{position:relative;width:70px;height:70px;border:0;background:transparent;padding:0;cursor:pointer;overflow:visible;border-radius:0;isolation:isolate;box-shadow:none}
-.bt:hover{transform:translateY(-3px)}
-.bt .bi{position:absolute;inset:0;width:100%;height:100%;z-index:1;border-radius:0;background:transparent;display:grid;place-items:center}
-.bt .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;margin:auto;transform:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
-.bt .q{position:absolute;right:-7px;bottom:-6px;left:auto;z-index:3;min-width:24px;height:24px;border-radius:12px;background:var(--c,#9aa5b1);border:2px solid #fff;color:#fff;font:900 12px/20px Nunito;text-align:center;padding:0 5px;white-space:nowrap;box-shadow:0 2px 5px rgba(0,0,0,.28)}
-.bt.l{cursor:default;background:rgba(25,34,57,.48);border:1px solid rgba(255,255,255,.16);border-radius:12px;overflow:hidden;box-shadow:inset 0 1px 4px rgba(255,255,255,.08),0 2px 5px rgba(0,0,0,.16)}
+/* Blooket-style My Blooks collection: pack-coloured square tiles, black locked slots and rarity counters. */
+.lpanel{background-color:#9849a8;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg opacity='.055' fill='%23ffffff'%3E%3Crect x='9' y='9' width='27' height='27' rx='8'/%3E%3Ccircle cx='17' cy='20' r='2.2' fill='%239849a8'/%3E%3Ccircle cx='28' cy='20' r='2.2' fill='%239849a8'/%3E%3Cpath d='M17 29q5 5 11 0' fill='none' stroke='%239849a8' stroke-width='2' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");background-size:56px 56px;border-radius:9px;border:3px solid #b66bc5;padding:15px 18px;height:calc(100vh - 250px);min-height:420px;overflow:auto;box-shadow:0 4px 0 rgba(60,10,90,.35);scrollbar-color:#d6a3df #7e3691}
+.lpanel h2{font:400 30px 'Titan One';margin:6px 0 0;padding:0 0 5px;border-bottom:3px solid rgba(255,255,255,.92);text-shadow:0 2px 0 rgba(60,10,90,.35)}
+.lpanel h2.chroma-head{margin-top:20px;color:#fff;border-bottom-color:rgba(255,255,255,.92);text-shadow:0 2px 0 rgba(60,10,90,.35)}
+.bl.chroma-list{padding:0;border:0;border-radius:0;background:transparent}
+.bl{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;margin:11px 0 23px}
+.bt{position:relative;flex:0 0 80px;width:80px;height:80px;border:0;background:transparent;padding:0;cursor:pointer;overflow:hidden;border-radius:7px;isolation:isolate;box-shadow:none;transition:transform .12s}
+.bt:hover{transform:translateY(-2px)}
+.bt.owned{background:transparent;border:0;box-shadow:none}
+.locker-art{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:hidden}
+.bt.owned .bi{position:absolute;inset:0;width:100%;height:100%;z-index:1;border-radius:0;background:transparent;display:block;overflow:hidden}
+.bt.owned .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;margin:0;transform:none;filter:none}
+.bt .q{position:absolute;left:3px;bottom:3px;z-index:3;min-width:20px;height:20px;border-radius:10px;background:var(--c,#9aa5b1);border:1px solid rgba(255,255,255,.9);color:#fff;font:900 11px/18px Nunito;text-align:center;padding:0 3px;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.bt.l{cursor:default;background:#050505;border:0;border-radius:6px;overflow:hidden;box-shadow:none}
 .bt.l:hover{transform:none}
-.bt.l .lc{width:100%;height:100%;border-radius:10px;background:transparent;display:grid;place-items:center}
-.bt.sel{filter:drop-shadow(0 0 5px #ffd23f);outline:3px solid #ffd23f;outline-offset:2px;border-radius:6px}
+.bt.l .lc{width:100%;height:100%;border-radius:6px;background:#050505;display:grid;place-items:center}
+.bt.l .lc svg{width:27px;height:30px}
+.bt.sel{outline:3px solid #ffd23f;outline-offset:1px;border-radius:7px;z-index:2}
 .side{background:var(--pur);border-radius:16px;border:4px solid #8a3aa0;padding:112px 18px 22px;position:relative;margin-top:96px;box-shadow:0 6px 0 rgba(60,10,90,.4)}
 .star{position:absolute;left:50%;top:-100px;width:360px;transform:translateX(-50%)}
 .gems{display:flex;flex-wrap:wrap;gap:16px 8px;justify-content:center}
@@ -127,7 +131,7 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .cd .cd-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
 .cd .cd-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 34%,rgba(0,0,0,.08) 72%,rgba(0,0,0,.24))}
 .cd .ct{position:absolute;z-index:4;top:4%;left:3%;right:3%;text-align:center}
-.cd .bi{position:absolute;z-index:3;left:50%;top:53%;width:70%;height:70%;transform:translate(-50%,-50%);display:grid;place-items:center;background:transparent}
+.cd .bi{position:absolute;z-index:3;left:50%;top:52%;width:82%;height:78%;transform:translate(-50%,-50%);display:block;overflow:hidden;background:transparent}
 .cd .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 
 .cn{font:400 clamp(24px,4.4vw,52px)/1 'Titan One';color:#fff;text-shadow:-2px -2px 0 #684629,2px -2px 0 #684629,-2px 2px 0 #684629,2px 2px 0 #684629,0 4px 0 #442b1d}
@@ -148,13 +152,13 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .pm.bm{grid-template-columns:minmax(0,360px) 1fr;align-items:start}
 .bmf{position:relative;aspect-ratio:1;border-radius:22px;overflow:hidden;background:#172744}
 .bmb{position:absolute;left:50%;top:50%;width:72%;height:72%;transform:translate(-50%,-50%);display:grid;place-items:center;z-index:1}
-.bmb .bi{width:100%;height:100%;background:transparent}.bmb .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.bmb .bi{position:relative;width:100%;height:100%;background:transparent;overflow:hidden}.bmb .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 .bsub{font:900 28px Nunito;margin:0 0 14px}
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
 .pchip2{display:inline-flex;gap:8px;align-items:center;background:rgba(0,0,0,.22);border-radius:12px;padding:6px 12px;font:900 18px Nunito}
 .qr2{display:flex;gap:12px;align-items:center;font:900 26px Nunito;margin:0 0 10px}
 .qr2 input{width:84px;font:900 28px Nunito;text-align:center;color:#fff;background:transparent;border:4px solid rgba(255,255,255,.35);border-radius:12px;padding:4px}
-@media(max-width:700px){.pm.bm{grid-template-columns:1fr}.bmb{width:76%;height:76%}.op .hint{max-width:86vw;font-size:clamp(17px,4vw,24px)}}
+@media(max-width:700px){.bt{flex-basis:72px;width:72px;height:72px}.pm.bm{grid-template-columns:1fr}.bmb{width:76%;height:76%}.op .hint{max-width:86vw;font-size:clamp(17px,4vw,24px)}}
 </style></head><body>
 <div class="top"><button class="chip" id="prof" aria-label="Profile"><span class="av" id="av"></span><span id="un">Player</span><span>⌄</span></button><div class="chip s"><span class="coin"></span><span id="tok">0</span></div></div>
 <div class="wrap"><div class="head"><h1 id="ttl">Market</h1>
@@ -279,12 +283,82 @@ const blookIconSlug=b=>BLOOK_ICON_SLUGS[b.n]||b.n.toLowerCase().replace(/[^a-z0-
 const blookIconSrc=b=>BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${blookIconSlug(b)}.svg`;
 const FREE_BG={'farm-animal':'#669b48','pet':'#bd8b62','forest-animal':'#376b4a','tropical-animal':'#398c68','arctic-animal':'#78b4d4'};
 const packBackground=b=>(P.find(p=>p.id===b.pid)?.bg)||FREE_BG[b.pid]||'#31516e';
+// Centre visible SVG artwork rather than the full SVG canvas. Blooket's
+// individual files contain different transparent margins, which can make
+// doughnuts and several other Blooks appear off-centre with object-fit alone.
+const BLOOK_BOUNDS_CACHE=new Map();
+function getBlookAlphaBounds(src){
+ if(BLOOK_BOUNDS_CACHE.has(src))return BLOOK_BOUNDS_CACHE.get(src);
+ const task=new Promise(resolve=>{
+  const probe=new Image();
+  probe.crossOrigin='anonymous';
+  probe.decoding='async';
+  probe.onload=()=>{
+   try{
+    const w=probe.naturalWidth||256,h=probe.naturalHeight||256;
+    // Analyse a small copy for speed; proportions are all that matter.
+    const cw=192,ch=Math.max(1,Math.round(192*h/w));
+    const canvas=document.createElement('canvas');canvas.width=cw;canvas.height=ch;
+    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+    if(!ctx) return resolve(null);
+    ctx.drawImage(probe,0,0,cw,ch);
+    const pixels=ctx.getImageData(0,0,cw,ch).data;
+    let minX=cw,minY=ch,maxX=-1,maxY=-1;
+    for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){
+     if(pixels[(y*cw+x)*4+3]>18){
+      if(x<minX)minX=x;if(x>maxX)maxX=x;
+      if(y<minY)minY=y;if(y>maxY)maxY=y;
+     }
+    }
+    if(maxX<minX||maxY<minY)return resolve(null);
+    resolve({
+     w:(maxX-minX+1)/cw,
+     h:(maxY-minY+1)/ch,
+     cx:(minX+maxX+1)/(2*cw),
+     cy:(minY+maxY+1)/(2*ch),
+     aspect:w/h
+    });
+   }catch(e){resolve(null)}
+  };
+  probe.onerror=()=>resolve(null);
+  probe.src=src;
+ });
+ BLOOK_BOUNDS_CACHE.set(src,task);
+ return task;
+}
+function centerBlookArt(img){
+ if(!img||img.dataset.optical==='done'||img.dataset.optical==='pending')return;
+ img.dataset.optical='pending';
+ const src=img.currentSrc||img.src;
+ const holder=img.closest('.bi');
+ if(!holder){img.dataset.optical='fallback';return}
+ getBlookAlphaBounds(src).then(bounds=>{
+  if(!img.isConnected)return;
+  // clientWidth/clientHeight are layout sizes and remain correct while the
+  // reveal card is animated from scale(0); getBoundingClientRect() does not.
+  const boxW=holder.clientWidth,boxH=holder.clientHeight;
+  if(!boxW||!boxH){img.dataset.optical='';requestAnimationFrame(()=>centerBlookArt(img));return}
+  if(!bounds||!bounds.w||!bounds.h){img.dataset.optical='fallback';return}
+  const aspect=bounds.aspect||1;
+  // Keep the visible (non-transparent) pixels inside 92% of the holder,
+  // preserving the SVG's natural aspect ratio and centring its visible bounds.
+  const widthFrac=Math.min(.92/bounds.w,.92*aspect*boxH/(boxW*bounds.h));
+  const heightFrac=widthFrac*boxW/(aspect*boxH);
+  img.style.position='absolute';
+  img.style.maxWidth='none';img.style.maxHeight='none';
+  img.style.objectFit='fill';img.style.objectPosition='center';img.style.transform='none';
+  img.style.width=(widthFrac*100)+'%';
+  img.style.height=(heightFrac*100)+'%';
+  img.style.left=((.5-bounds.cx*widthFrac)*100)+'%';
+  img.style.top=((.5-bounds.cy*heightFrac)*100)+'%';
+  img.dataset.optical='done';
+ }).catch(()=>{img.dataset.optical='fallback'});
+}
 const bimg=b=>{
- const src=blookIconSrc(b);
- const label=b.n.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
- return `<span class="bi" style="--c:${rar(b.k).c}" data-l="${label}"><img src="${src}" alt="${label}" decoding="async" onerror="this.onerror=null;this.closest('.bi').classList.add('nf');this.remove()"></span>`;
+ const src=blookIconSrc(b);const label=b.n.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+ return `<span class="bi" style="--c:${rar(b.k).c}" data-l="${label}"><img src="${src}" alt="${label}" decoding="async" loading="lazy" onload="centerBlookArt(this)" onerror="this.onerror=null;this.closest('.bi').classList.add('nf');this.remove()"></span>`;
 };
-const lockerArt=b=>bimg(b);
+const lockerArt=b=>`<span class="locker-art">${bimg(b)}</span>`;
 const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span><span class="pic">${img(p.id+'-icon')}</span>`;
 let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x&&typeof x==='object')S=Object.assign(S,x)}catch(e){}
 S.tok=Math.max(0,Math.floor(Number(S.tok)||0));S.inv=S.inv&&typeof S.inv==='object'?S.inv:{};S.name=String(S.name||'Player').slice(0,16);S.av=String(S.av||'');
@@ -320,8 +394,8 @@ function render(){
   m.innerHTML='<div class="grid">'+PM.map(p=>`<button class="card" style="--rim:${p.rim}" data-id="${p.id}" aria-label="${p.n} Pack, ${p.cost} tokens"><div class="art" style="--bg:${p.bg}">${pimg(p)}</div><div class="price"><span class="coin"></span>${p.cost}</div></button>`).join('')+'</div>';
   m.querySelectorAll('.card').forEach(b=>b.onclick=()=>packModal(P.find(p=>p.id===b.dataset.id)));return;
  }
- const tile=b=>{const n=cnt(b);return n?`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${lockerArt(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="Locked Blook"><span class="lc">${lockSvg}</span></button>`};
- const ftile=b=>`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${COM.c}" data-c="${b.code}" aria-label="${b.n}, Common">${lockerArt(b)}</button>`;
+ const tile=b=>{const n=cnt(b);return n?`<button class="bt owned ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${lockerArt(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="Locked Blook"><span class="lc">${lockSvg}</span></button>`};
+ const ftile=b=>`<button class="bt owned ${S.av===b.code?'sel':''}" style="--c:${COM.c}" data-c="${b.code}" aria-label="${b.n}, Common">${lockerArt(b)}</button>`;
  const chromas=ALL.filter(b=>b.k==='C'&&cnt(b)>0);
  const chromaSection=chromas.length?`<h2 class="chroma-head">Chroma</h2><div class="bl chroma-list">${chromas.map(tile).join('')}</div>`:'';
  const free=!showFree?'':showPacks?F.map(f=>`<h2>${f.n} Pack</h2><div class="bl">${f.list.map(ftile).join('')}</div>`).join(''):FALL.map(ftile).join('');
@@ -332,7 +406,7 @@ function render(){
  $('#sf').onclick=()=>{showFree=!showFree;render()};$('#sp').onclick=()=>{showPacks=!showPacks;render()};
  m.querySelectorAll('.bt:not(.l)').forEach(t=>t.onclick=()=>blookModal(byCode(t.dataset.c)));
 }
-const show=(h,wide)=>{clr();$('#ov').style.background='';const sg=$('#stage');sg.onclick=null;sg.onkeydown=null;sg.removeAttribute('tabindex');sg.style.cssText='';$('#stage').className=wide?'wide':'';$('#stage').innerHTML=h;$('#ov').classList.add('on')};
+const show=(h,wide)=>{clr();$('#ov').style.background='';const sg=$('#stage');sg.onclick=null;sg.onkeydown=null;sg.removeAttribute('tabindex');sg.style.cssText='';$('#stage').className=wide?'wide':'';$('#stage').innerHTML=h;$('#ov').classList.add('on');requestAnimationFrame(()=>requestAnimationFrame(()=>$('#stage').querySelectorAll('.bi img').forEach(centerBlookArt)))};
 function close(){if(revealLocked)return;clr();$('#ov').style.background='';$('#stage').onclick=null;$('#stage').onkeydown=null;$('#stage').removeAttribute('tabindex');$('#ov').classList.remove('on');render()}
 const xb=()=>`<button class="x" id="cx" aria-label="Close">✕</button>`;
 function blookModal(b){
@@ -355,7 +429,7 @@ function blookModal(b){
 function profile(){
  const own=[...PL.flatMap(p=>p.list).filter(b=>cnt(b)),...FALL];let pick=S.av;
  show(`<div class="pm one">${xb()}<h2>Profile</h2><label for="nm" style="font:400 22px 'Titan One'">Username</label><input class="nm" id="nm" maxlength="16" value="${S.name.replace(/"/g,'&quot;')}"><div style="font:400 22px 'Titan One';margin-top:16px">Choose your icon</div>
- ${own.length?`<div class="sc">${own.map(b=>`<button class="bt ${b.code===pick?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}">${lockerArt(b)}</button>`).join('')}</div>`:'<p class="note">Open some packs to unlock blooks you can use as your icon.</p>'}
+ ${own.length?`<div class="sc">${own.map(b=>`<button class="bt owned ${b.code===pick?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}">${lockerArt(b)}</button>`).join('')}</div>`:'<p class="note">Open some packs to unlock blooks you can use as your icon.</p>'}
  <div class="row" style="justify-content:flex-start"><button class="btn" id="sv">Save</button><button class="btn g" id="cc">Cancel</button></div></div>`,true);
  document.querySelectorAll('#stage .bt').forEach(t=>t.onclick=()=>{pick=t.dataset.c;document.querySelectorAll('#stage .bt').forEach(x=>x.classList.toggle('sel',x===t))});
  $('#cx').onclick=close;$('#cc').onclick=close;$('#nm').focus();
@@ -418,6 +492,7 @@ function play(p,pulls,i){
  const cols=Math.max(6,Math.round(innerWidth/130)),w=innerWidth/cols,N=cols*(Math.ceil(innerHeight/w)+1);
  let tl='';for(let j=0;j<N;j++)tl+=`<i class="tl" style="background:${rnd(PURPLE)}"></i>`;
  st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd"><img class="cd-bg" src="${blookBackgroundSrc(g.pid)}" alt="" aria-hidden="true" onerror="this.style.display='none'"><div class="cd-shade"></div><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>st.querySelectorAll('.bi img').forEach(centerBlookArt)));
  const flash=()=>{const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')};
  if(i===0)flash();
  const g2=st.querySelector('.grid2'),tls=[...g2.children],hint=$('#hint');
