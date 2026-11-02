@@ -184,7 +184,7 @@ const P=[
 {id:'spooky',n:'Spooky',cost:25,bg:'#1c1c20',bag:'linear-gradient(150deg,#c04bd8,#6a2a9c)',rim:'#7e3aa8',
  b:{U:same(['Pumpkin','Swamp Monster','Frankenstein','Vampire','Zombie'],15.2),R:same(['Vampire Bat','Mummy','Caramel Apple','Candy Corn','Crow'],4),E:[['Werewolf',1.65],['Goo Monster',1.65]],L:[['Ghost',.65]],C:[['Spooky Moth',.05]]}},
 {id:'autumn',n:'Autumn',cost:25,bg:'#a8561c',bag:'linear-gradient(150deg,#e8a33a,#a8561c)',rim:'#c0682a',
- b:{U:same(['Black Bear','Pumpkin Pie','Chipmunk','Cornucopia'],19.5),R:same(['Autumn Cat','Pumpkin Puppy','Red Squirrel'],6),E:[['Autumn Crow',2.95]],L:[['Turkey',1]],C:[['Goldfinch',.05]]}},
+ b:{U:same(['Black Bear','Pumpkin Pie','Chipmunk','Cornucopia'],19.5),R:same(['Autumn Cat','Pumpkin Puppy','Red Squirrel'],6),E:[['Autumn Crow',2.95]],L:[['Turkey',1]],C:[['Golden Pumpkin Pie',.05],['Goldfinch',.05]]}},
 {id:'blizzard',n:'Blizzard',cost:25,bg:'#5ab4e0',bag:'linear-gradient(150deg,#b8e4f8,#5a9ed0)',rim:'#6ac0ea',
  b:{U:same(['Snow Globe','Holiday Gift','Hot Chocolate','Holiday Wreath','Stocking'],14.5),R:same(['Gingerbread Man','Gingerbread House','Reindeer',"Santa's Sleigh"],5.55),E:[['Snowman',4.25]],L:[['Santa Claus',1]],C:[['Peppermint Bark',.03],['Chilly Chameleon',.02]]}},
 {id:'lunch',n:'Lunch',cost:25,bg:'#8a2fa6',bag:'linear-gradient(150deg,#6a3c9e,#3b1d63)',rim:'#9a3db8',
@@ -200,7 +200,7 @@ const P=[
 {id:'dino',n:'Dino',cost:25,bg:'#10301f',bag:'linear-gradient(150deg,#1f6a3a,#0d3b22)',rim:'#2a5a38',
  b:{U:same(['Amber','Dino Egg','Dino Fossil','Stegosaurus'],19.5),R:same(['Velociraptor','Brontosaurus'],9),E:[['Triceratops',3.7]],L:[['Tyrannosaurus Rex',.3]],C:[]}},
 {id:'aquatic',n:'Aquatic',cost:20,bg:'#1f6ae0',bag:'linear-gradient(150deg,#f0d9a0,#d8a860)',rim:'#2a7aee',
- b:{U:same(['Old Boot','Jellyfish','Clownfish','Frog','Crab'],15),R:same(['Pufferfish','Blobfish','Octopus'],6.1),E:[['Narwhal',3],['Dolphin',3]],L:[['Baby Shark',.5],['Megalodon',.2]],C:[]}},
+ b:{U:same(['Old Boot','Jellyfish','Clownfish','Frog','Crab'],15),R:same(['Pufferfish','Blobfish','Octopus'],6.1),E:[['Narwhal',3],['Dolphin',3]],L:[['Baby Shark',.5],['Megalodon',.2]],C:[['Rainbow Jellyfish',.02]]}},
 {id:'safari',n:'Safari',cost:20,bg:'#f08a1c',bag:'linear-gradient(150deg,#f5b84a,#c8661a)',rim:'#f59a2c',
  b:{U:same(['Panda','Sloth','Tenrec','Flamingo','Zebra'],15),R:same(['Elephant','Lemur','Peacock'],7),E:[['Chameleon',3.48]],L:[['Lion',.5]],C:[['Rainbow Panda',.02]]}},
 {id:'bot',n:'Bot',cost:20,bg:'#3a9a48',bag:'linear-gradient(150deg,#2a7a58,#1a4a38)',rim:'#4aaa58',
@@ -273,6 +273,8 @@ const BLOOK_ICON_SLUGS={
 };
 // A few Blooket originals use legacy Cloudinary filenames instead of the regular market filename.
 const BLOOK_ICON_URLS={
+ 'Golden Pumpkin Pie':'https://ac.blooket.com/marketassets/blooks/goldenpumpkinpie.svg',
+ 'Rainbow Jellyfish':'https://ac.blooket.com/marketassets/blooks/rainbowjellyfish.svg',
  'Capuchin':'https://res.cloudinary.com/blooket/image/upload/v1566681187/Blooks/capuchinMonkey.svg',
  'Pink Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/pinkAstronaut.svg',
  'Yellow Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003833/Blooks/yellowAstronaut.svg',
@@ -386,7 +388,7 @@ const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(w<
 let tab='shop',showFree=false,showPacks=true;
 const byCode=c=>ALL.find(b=>b.code===c)||FALL.find(b=>b.code===c);
 function setTab(t){tab=t;$('#n-shop').style.opacity=t==='shop'?1:.7;$('#n-col').style.opacity=t==='col'?1:.7;$('#ttl').textContent=t==='shop'?'Market':'My Blooks';render()}
-$('#n-shop').onclick=()=>setTab('shop');$('#n-col').onclick=()=>setTab('col');$('#n-bonus').onclick=()=>{S.tok+=100;save();render()};$('#prof').onclick=profile;
+$('#n-shop').onclick=()=>setTab('shop');$('#n-col').onclick=()=>setTab('col');$('#n-bonus').onclick=()=>{S.tok+=100;save();$('#tok').textContent=S.tok.toLocaleString()};$('#prof').onclick=profile;
 function gem(k){const f={Cm:'#a8b2bd',U:'#35c24a',R:'#2a7fe0',E:'#e0452a',L:'#ff8a1a',C:'#1fc8b8'}[k];const d={Cm:'<polygon points="20,4 36,20 20,36 4,20"',U:'<polygon points="4,6 36,6 20,36"',R:'<polygon points="20,2 38,20 20,38 2,20"',E:'<polygon points="12,4 28,4 38,20 28,36 12,36 2,20"',L:'<polygon points="20,3 37,14 30,36 10,36 3,14"',C:'<rect x="5" y="5" width="30" height="30" rx="7"'}[k];return `<svg width="42" height="42" viewBox="0 0 40 40" aria-hidden="true">${d} fill="${f}" stroke="rgba(0,0,0,.35)" stroke-width="3" stroke-linejoin="round"/><polygon points="12,10 22,10 16,18" fill="rgba(255,255,255,.45)"/></svg>`}
 const lockSvg='<svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true"><path d="M8 14V10a7 7 0 0114 0v4" fill="none" stroke="#fff" stroke-width="4"/><rect x="3" y="14" width="24" height="17" rx="4" fill="#fff"/><circle cx="15" cy="22" r="3" fill="#000"/></svg>';
 function render(){
