@@ -184,7 +184,7 @@ const P=[
 {id:'bot',n:'Bot',cost:20,bg:'#3a9a48',bag:'linear-gradient(150deg,#2a7a58,#1a4a38)',rim:'#4aaa58',
  b:{U:same(['Lil Bot','Lovely Bot','Angry Bot','Happy Bot'],19.5),R:same(['Watson','Buddy Bot'],9),E:[['Brainy Bot',3.7]],L:[['Mega Bot',.3]],C:[]}},
 {id:'space',n:'Space',cost:20,bg:'#14124a',bag:'linear-gradient(150deg,#e8e4f8,#a8a0d8)',rim:'#26226a',
- b:{U:same(['Earth','Meteor','Stars','Alien'],18.75),R:same(['Planet','UFO'],10),E:[['Spaceship',4.5]],L:[['Astronaut',.45]],C:[['Colored Astronaut',.05]]}},
+ b:{U:same(['Earth','Meteor','Stars','Alien'],18.75),R:same(['Planet','UFO'],10),E:[['Spaceship',4.5]],L:[['Astronaut',.45]],C:[['Pink Astronaut',.05/7],['Yellow Astronaut',.05/7],['Black Astronaut',.05/7],['Orange Astronaut',.05/7],['Red Astronaut',.05/7],['Brown Astronaut',.05/7],['Green Astronaut',.05/7]]}},
 {id:'medieval',n:'Medieval',cost:20,bg:'#6a6a6e',bag:'linear-gradient(150deg,#8a5a3a,#4a2a1a)',rim:'#8a8a8e',
  b:{U:same(['Witch','Wizard','Elf','Fairy','Slime Monster'],13.4),R:same(['Jester','Dragon','Queen'],9),E:[['Unicorn',5]],L:[['King',1]],C:[]}},
 {id:'wonderland',n:'Wonderland',cost:20,bg:'#4a2a7a',bag:'linear-gradient(150deg,#2a1a4a,#0a0a1a)',rim:'#6a3aa0',
@@ -211,11 +211,53 @@ const CODES=[...P.map(p=>p.code),...P.map(p=>p.id+'-icon'),...P.map(p=>p.id+'-bg
 /*END-DATA*/
 function nx(i){const n=+i.dataset.i+1;if(n<EX.length){i.dataset.i=n;i.src=DIR+i.dataset.c+'.'+EX[n]}else{i.parentElement.classList.add('nf');i.remove()}}
 const img=c=>`<img src="${DIR}${c}.png" data-c="${c}" data-i="0" alt="" onerror="nx(this)">`;
-const bimg=b=>`<span class="bi" style="--c:${rar(b.k).c}" data-l="${b.n[0]}">${img(b.code)}</span>`;
+// Blooket's original artwork is hosted as transparent SVG files.
+// Several filenames are not the same as the Blook's displayed name.
+const BLOOK_ICON_SLUGS={
+ 'Ding':'dink',
+ 'Caramel Apple':'caramelapple2',
+ 'Eat Me':'eat',
+ 'Drink Me':'drink',
+ 'Tyrannosaurus Rex':'tyrannosaurusrex'
+};
+// A few Blooket originals use legacy Cloudinary filenames instead of the regular market filename.
+const BLOOK_ICON_URLS={
+ 'Capuchin':'https://res.cloudinary.com/blooket/image/upload/v1566681187/Blooks/capuchinMonkey.svg',
+ 'Pink Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/pinkAstronaut.svg',
+ 'Yellow Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003833/Blooks/yellowAstronaut.svg',
+ 'Black Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003835/Blooks/blackAstronaut.svg',
+ 'Orange Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/orangeAstronaut.svg',
+ 'Red Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/redAstronaut.svg',
+ 'Brown Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/brownAstronaut.svg',
+ 'Green Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/greenAstronaut.svg'
+};
+const blookIconSlug=b=>BLOOK_ICON_SLUGS[b.n]||b.n.toLowerCase().replace(/[^a-z0-9]/g,'');
+const bimg=b=>{
+ const file=blookIconSlug(b);
+ const src=BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${file}.svg`;
+ const label=b.n.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+ return `<span class="bi" style="--c:${rar(b.k).c}" data-l="${label}"><img src="${src}" alt="${label}" decoding="async" onerror="this.onerror=null;this.closest('.bi').classList.add('nf');this.remove()"></span>`;
+};
 const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span><span class="pic">${img(p.id+'-icon')}</span>`;
 let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x)S=Object.assign(S,x)}catch(e){}
 const save=()=>{try{localStorage.setItem('mk4',JSON.stringify(S))}catch(e){}};
-const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(3))+'%',cnt=b=>S.inv[key(b)]||0;
+// Convert older generic Astronaut Chroma copies into the seven obtainable colour variants.
+if(S.inv && S.inv['Space|Colored Astronaut']){
+ const oldCopies=Math.max(0,Math.floor(Number(S.inv['Space|Colored Astronaut'])||0));
+ const colours=['Pink Astronaut','Yellow Astronaut','Black Astronaut','Orange Astronaut','Red Astronaut','Brown Astronaut','Green Astronaut'];
+ for(let i=0;i<oldCopies;i++){
+  const colour=colours[Math.floor(Math.random()*colours.length)];
+  const invKey='Space|'+colour;
+  S.inv[invKey]=(S.inv[invKey]||0)+1;
+ }
+ delete S.inv['Space|Colored Astronaut'];
+ if(S.av==='space_colored-astronaut'){
+  const colour=colours[Math.floor(Math.random()*colours.length)];
+  S.av='space_'+colour.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+ }
+ save();
+}
+const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(w<.01?5:3))+'%',cnt=b=>S.inv[key(b)]||0;
 let tab='shop',showFree=false,showPacks=true;
 const byCode=c=>ALL.find(b=>b.code===c)||FALL.find(b=>b.code===c);
 function setTab(t){tab=t;$('#n-shop').style.opacity=t==='shop'?1:.7;$('#n-col').style.opacity=t==='col'?1:.7;$('#ttl').textContent=t==='shop'?'Market':'My Blooks';render()}
