@@ -33,18 +33,23 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .art,.pf{position:relative}
 .pic{position:absolute;right:3%;bottom:3%;width:22%;height:22%;opacity:.35;filter:brightness(0) invert(1);pointer-events:none}.pic img{width:100%;height:100%;object-fit:contain;display:block}
 .pi.nf::after{display:block;transform:rotate(7deg);content:attr(data-l);font:400 26px/1 'Titan One';text-align:center;padding:10px;text-shadow:0 3px 0 rgba(0,0,0,.4);text-transform:uppercase}
-.bi{display:grid;place-items:center;width:100%;height:100%;border-radius:14px}.bi img{width:100%;height:100%;object-fit:contain}
-.bi.nf{background:linear-gradient(var(--c),color-mix(in srgb,var(--c) 70%,#000));color:#fff}.bi.nf::after{content:attr(data-l);font:400 30px 'Titan One'}
+.bi{display:grid;place-items:center;width:100%;height:100%;border-radius:14px}.bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.bi.nf{background:transparent;color:#fff}.bi.nf::after{content:attr(data-l);font:400 15px/1.1 'Titan One';text-align:center;text-shadow:0 2px 5px rgba(0,0,0,.8);padding:4px}
 .lk-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
 .lpanel{background:var(--pur);border-radius:16px;border:4px solid #8a3aa0;padding:18px 22px;height:calc(100vh - 250px);min-height:420px;overflow:auto;box-shadow:0 6px 0 rgba(60,10,90,.4);scrollbar-color:#fff #8a3aa0}
 .lpanel h2{font:400 34px 'Titan One';margin:6px 0 0;padding-bottom:6px;border-bottom:4px solid #fff;text-shadow:0 3px 0 rgba(60,10,90,.35)}
+.lpanel h2.chroma-head{margin-top:26px;color:#bffaff;border-bottom-color:#28d5ed;text-shadow:0 3px 0 rgba(0,55,90,.45)}
+.bl.chroma-list{padding:12px 10px;border:2px solid rgba(75,225,245,.55);border-radius:14px;background:rgba(0,25,55,.18)}
 .bl{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 28px}
-.bt{position:relative;width:70px;height:70px;border:0;background:none;padding:0;cursor:pointer}
+.bt{position:relative;width:70px;height:70px;border:0;background:transparent;padding:0;cursor:pointer;overflow:visible;border-radius:0;isolation:isolate;box-shadow:none}
 .bt:hover{transform:translateY(-3px)}
-.bt .q{position:absolute;left:-3px;bottom:-3px;min-width:22px;height:22px;border-radius:11px;background:var(--c);border:2px solid #fff;color:#fff;font:900 12px/18px Nunito;text-align:center;padding:0 5px}
-.bt.l{cursor:default}.bt.l:hover{transform:none}
-.bt.l .lc{width:100%;height:100%;border-radius:14px;background:#000;display:grid;place-items:center}
-.bt.sel{outline:4px solid #ffd23f;outline-offset:2px;border-radius:14px}
+.bt .bi{position:absolute;inset:0;width:100%;height:100%;z-index:1;border-radius:0;background:transparent;display:grid;place-items:center}
+.bt .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;margin:auto;transform:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+.bt .q{position:absolute;right:-7px;bottom:-6px;left:auto;z-index:3;min-width:24px;height:24px;border-radius:12px;background:var(--c,#9aa5b1);border:2px solid #fff;color:#fff;font:900 12px/20px Nunito;text-align:center;padding:0 5px;white-space:nowrap;box-shadow:0 2px 5px rgba(0,0,0,.28)}
+.bt.l{cursor:default;background:rgba(25,34,57,.48);border:1px solid rgba(255,255,255,.16);border-radius:12px;overflow:hidden;box-shadow:inset 0 1px 4px rgba(255,255,255,.08),0 2px 5px rgba(0,0,0,.16)}
+.bt.l:hover{transform:none}
+.bt.l .lc{width:100%;height:100%;border-radius:10px;background:transparent;display:grid;place-items:center}
+.bt.sel{filter:drop-shadow(0 0 5px #ffd23f);outline:3px solid #ffd23f;outline-offset:2px;border-radius:6px}
 .side{background:var(--pur);border-radius:16px;border:4px solid #8a3aa0;padding:112px 18px 22px;position:relative;margin-top:96px;box-shadow:0 6px 0 rgba(60,10,90,.4)}
 .star{position:absolute;left:50%;top:-100px;width:360px;transform:translateX(-50%)}
 .gems{display:flex;flex-wrap:wrap;gap:16px 8px;justify-content:center}
@@ -98,7 +103,7 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .op .tl{border-radius:12px;transition:background .4s}
 .op .grid2.ch{animation:hue 4s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
 .op .corner2{position:absolute;right:1.5%;bottom:1.5%;width:min(8vw,70px);height:min(8vw,70px);opacity:.5;filter:brightness(0) invert(1);pointer-events:none}.op .corner2 img{width:100%;height:100%;object-fit:contain}
-.op .bagbox{position:absolute;left:50%;top:50%;width:clamp(200px,24vw,380px);aspect-ratio:1;transform:translate(-50%,-50%);animation:bagin .5s .35s ease-out both}
+.op .bagbox{position:absolute;left:50%;top:50%;width:clamp(200px,24vw,380px);aspect-ratio:1;transform:translate(-50%,-50%);animation:bagin .5s .35s ease-out both;z-index:2}
 @keyframes bagin{from{opacity:0}to{opacity:1}}
 .op.shake .bagbox{animation:bshake .45s ease-in-out infinite}
 @keyframes bshake{0%,100%{transform:translate(-50%,-50%) rotate(-3deg)}50%{transform:translate(-50%,-50%) rotate(3deg) scale(1.04)}}
@@ -118,28 +123,38 @@ nav{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:6px}
 .op .cardw{position:absolute;left:50%;top:50%;width:clamp(220px,30vw,470px);aspect-ratio:1;transform:translate(-50%,-50%) scale(0);opacity:0}
 .op.show .cardw{animation:cpop .3s cubic-bezier(.2,1.4,.4,1) forwards}
 @keyframes cpop{from{transform:translate(-50%,-50%) scale(.3);opacity:1}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
-.cd{position:relative;width:100%;height:100%;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--pb) 70%,#000),color-mix(in srgb,var(--pb) 35%,#000));box-shadow:0 0 0 4px rgba(0,0,0,.35),0 12px 34px rgba(0,0,0,.5)}
-.cd .bi{position:absolute;left:21%;top:25%;width:58%;height:58%}
-.cd .ct{position:absolute;top:3%;left:0;right:0}
-.cn{font:400 clamp(24px,4.4vw,52px)/1 'Titan One';color:#fff;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 4px 0 #000}
-.cr{font:400 clamp(16px,2.8vw,32px)/1.1 'Titan One';filter:brightness(1.4);text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000}
-.cp{position:absolute;bottom:3%;left:0;right:0;font:900 clamp(16px,2.6vw,30px) Nunito;color:#fff;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000}
+.cd{position:relative;isolation:isolate;width:100%;height:100%;border:4px solid rgba(255,255,255,.9);border-radius:15px;overflow:hidden;background:#172744;box-shadow:0 0 0 3px rgba(0,0,0,.28),0 12px 34px rgba(0,0,0,.5)}
+.cd .cd-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.cd .cd-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 34%,rgba(0,0,0,.08) 72%,rgba(0,0,0,.24))}
+.cd .ct{position:absolute;z-index:4;top:4%;left:3%;right:3%;text-align:center}
+.cd .bi{position:absolute;z-index:3;left:50%;top:53%;width:70%;height:70%;transform:translate(-50%,-50%);display:grid;place-items:center;background:transparent}
+.cd .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+
+.cn{font:400 clamp(24px,4.4vw,52px)/1 'Titan One';color:#fff;text-shadow:-2px -2px 0 #684629,2px -2px 0 #684629,-2px 2px 0 #684629,2px 2px 0 #684629,0 4px 0 #442b1d}
+.cr{font:400 clamp(16px,2.8vw,32px)/1.1 'Titan One';filter:brightness(1.15);text-shadow:-1px -1px 0 #17204f,1px -1px 0 #17204f,-1px 1px 0 #17204f,1px 1px 0 #17204f}
+.cp{position:absolute;z-index:4;bottom:2%;left:0;right:0;font:900 clamp(16px,2.6vw,30px) Nunito;color:#fff;text-shadow:-1px -1px 0 #5b3b23,1px -1px 0 #5b3b23,-1px 1px 0 #5b3b23,1px 1px 0 #5b3b23}
 .op canvas{position:absolute;inset:0;pointer-events:none}
-.op .hint{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);font:400 24px 'Titan One';opacity:.85;animation:blink 1.4s ease-in-out infinite;text-shadow:0 3px 0 rgba(0,0,0,.5)}
+.op .hint{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);font:400 24px 'Titan One';opacity:.85;animation:blink 1.4s ease-in-out infinite;text-shadow:0 3px 0 rgba(0,0,0,.5);white-space:nowrap}
+.op .hint.waiting{animation:none;opacity:.9}
+.op .gem-burst{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.op .gem-shard{position:absolute;left:50%;top:50%;width:clamp(12px,1.8vw,23px);height:clamp(12px,1.8vw,23px);border:1px solid rgba(190,244,255,.8);border-radius:3px;background:linear-gradient(135deg,#bdf5ff 0 12%,#58cfff 13% 35%,#1685d6 36% 68%,#07549f 69% 100%);box-shadow:inset 2px 2px 3px rgba(255,255,255,.8),inset -2px -2px 3px rgba(0,20,75,.55),0 2px 7px rgba(0,0,0,.35);opacity:0;animation:gemBurst 1.35s cubic-bezier(.12,.65,.25,1) var(--delay,0ms) forwards}
+.op .gem-shard:after{content:"";position:absolute;left:18%;top:18%;width:28%;height:28%;background:rgba(255,255,255,.8);transform:skew(-18deg);filter:blur(.3px)}
+@keyframes gemBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.18) rotate(0)}13%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(var(--scale,.75)) rotate(var(--rot,0deg))}}
 @keyframes blink{50%{opacity:.35}}
-.op .ctr{position:absolute;top:18px;left:50%;transform:translateX(-50%);font:400 22px 'Titan One';opacity:.8}
+.op .ctr{position:absolute;left:16px;top:16px;bottom:auto;transform:none;font:400 20px 'Titan One';opacity:.95;text-shadow:0 2px 5px rgba(0,0,0,.65);background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:5px 10px;z-index:7}
 @media(prefers-reduced-motion:reduce){.op.show .cardw{opacity:1;transform:translate(-50%,-50%)}.op.tear .bagbox{opacity:0}}
 
-.bgl{position:absolute;inset:0;display:block;pointer-events:none}.bgl img{width:100%;height:100%;object-fit:cover;display:block}
+.bgl{position:absolute;inset:0;display:block;pointer-events:none;overflow:hidden}.bgl img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .pm.bm{grid-template-columns:minmax(0,360px) 1fr;align-items:start}
-.bmf{position:relative;aspect-ratio:1;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 55%,#0b1a3a),#0b1a3a)}
-.bmb{position:absolute;left:25%;top:28%;width:50%;height:50%}
+.bmf{position:relative;aspect-ratio:1;border-radius:22px;overflow:hidden;background:#172744}
+.bmb{position:absolute;left:50%;top:50%;width:72%;height:72%;transform:translate(-50%,-50%);display:grid;place-items:center;z-index:1}
+.bmb .bi{width:100%;height:100%;background:transparent}.bmb .bi img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 .bsub{font:900 28px Nunito;margin:0 0 14px}
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
 .pchip2{display:inline-flex;gap:8px;align-items:center;background:rgba(0,0,0,.22);border-radius:12px;padding:6px 12px;font:900 18px Nunito}
 .qr2{display:flex;gap:12px;align-items:center;font:900 26px Nunito;margin:0 0 10px}
 .qr2 input{width:84px;font:900 28px Nunito;text-align:center;color:#fff;background:transparent;border:4px solid rgba(255,255,255,.35);border-radius:12px;padding:4px}
-@media(max-width:700px){.pm.bm{grid-template-columns:1fr}}
+@media(max-width:700px){.pm.bm{grid-template-columns:1fr}.bmb{width:76%;height:76%}.op .hint{max-width:86vw;font-size:clamp(17px,4vw,24px)}}
 </style></head><body>
 <div class="top"><button class="chip" id="prof" aria-label="Profile"><span class="av" id="av"></span><span id="un">Player</span><span>⌄</span></button><div class="chip s"><span class="coin"></span><span id="tok">0</span></div></div>
 <div class="wrap"><div class="head"><h1 id="ttl">Market</h1>
@@ -213,6 +228,35 @@ function nx(i){const n=+i.dataset.i+1;if(n<EX.length){i.dataset.i=n;i.src=DIR+i.
 const img=c=>`<img src="${DIR}${c}.png" data-c="${c}" data-i="0" alt="" onerror="nx(this)">`;
 // Blooket's original artwork is hosted as transparent SVG files.
 // Several filenames are not the same as the Blook's displayed name.
+const BLOOK_BG_URLS={
+ 'aquatic':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Aquatic-CDVAa5Z1.svg',
+ 'arctic-animal':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Arctic-DnFet-Es.svg',
+ 'blizzard':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Blizzard-BEOZGRo9.svg',
+ 'bot':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Bots-CWFp85lE.svg',
+ 'breakfast':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Breakfast-rXV3rN0C.svg',
+ 'dino':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Dino-qvYP8NHH.svg',
+ 'farm-animal':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Farm-Cf8P0mJz.svg',
+ 'forest-animal':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Forest-56I9sRnu.svg',
+ 'ice-monsters':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Ice_Monster-IrnSpiG5.svg',
+ 'medieval':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Medieval-HAKt-8uS.svg',
+ 'outback':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Outback-CCDUJgD9.svg',
+ 'pet':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Pets--9tpvwHe.svg',
+ 'dog':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Pets--9tpvwHe.svg',
+ 'safari':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Safari-Bov1ICT4.svg',
+ 'space':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Space-BVfDeCoN.svg',
+ 'spooky':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Spooky-BE3Q44ax.svg',
+ 'tropical-animal':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Tropical-DV9rwhsh.svg',
+ 'wonderland':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Wonderland-By4voe3_.svg',
+ 'pirate':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Pirate-CrD0PKuQ.svg',
+ 'autumn':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Autumn-p3HcOb_2.svg',
+ 'bug':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Bug-D5IFT82n.svg',
+ 'lunch':'https://ac.blooket.com/dashclassic/assets/Highlighted_Background_Lunch-BfOeSTeT.svg'
+};
+const blookBackgroundSrc=pid=>BLOOK_BG_URLS[pid]||'';
+const blookBackground=(pid,cls='')=>{
+ const src=blookBackgroundSrc(pid);
+ return src?`<img class="${cls}" src="${src}" alt="" aria-hidden="true" decoding="async" onerror="this.style.display='none'">`:'';
+};
 const BLOOK_ICON_SLUGS={
  'Ding':'dink',
  'Caramel Apple':'caramelapple2',
@@ -232,14 +276,18 @@ const BLOOK_ICON_URLS={
  'Green Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/greenAstronaut.svg'
 };
 const blookIconSlug=b=>BLOOK_ICON_SLUGS[b.n]||b.n.toLowerCase().replace(/[^a-z0-9]/g,'');
+const blookIconSrc=b=>BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${blookIconSlug(b)}.svg`;
+const FREE_BG={'farm-animal':'#669b48','pet':'#bd8b62','forest-animal':'#376b4a','tropical-animal':'#398c68','arctic-animal':'#78b4d4'};
+const packBackground=b=>(P.find(p=>p.id===b.pid)?.bg)||FREE_BG[b.pid]||'#31516e';
 const bimg=b=>{
- const file=blookIconSlug(b);
- const src=BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${file}.svg`;
+ const src=blookIconSrc(b);
  const label=b.n.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
  return `<span class="bi" style="--c:${rar(b.k).c}" data-l="${label}"><img src="${src}" alt="${label}" decoding="async" onerror="this.onerror=null;this.closest('.bi').classList.add('nf');this.remove()"></span>`;
 };
+const lockerArt=b=>bimg(b);
 const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span><span class="pic">${img(p.id+'-icon')}</span>`;
-let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x)S=Object.assign(S,x)}catch(e){}
+let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x&&typeof x==='object')S=Object.assign(S,x)}catch(e){}
+S.tok=Math.max(0,Math.floor(Number(S.tok)||0));S.inv=S.inv&&typeof S.inv==='object'?S.inv:{};S.name=String(S.name||'Player').slice(0,16);S.av=String(S.av||'');
 const save=()=>{try{localStorage.setItem('mk4',JSON.stringify(S))}catch(e){}};
 // Convert older generic Astronaut Chroma copies into the seven obtainable colour variants.
 if(S.inv && S.inv['Space|Colored Astronaut']){
@@ -248,7 +296,7 @@ if(S.inv && S.inv['Space|Colored Astronaut']){
  for(let i=0;i<oldCopies;i++){
   const colour=colours[Math.floor(Math.random()*colours.length)];
   const invKey='Space|'+colour;
-  S.inv[invKey]=(S.inv[invKey]||0)+1;
+  S.inv[invKey]=Math.max(0,Number(S.inv[invKey])||0)+1;
  }
  delete S.inv['Space|Colored Astronaut'];
  if(S.av==='space_colored-astronaut'){
@@ -257,7 +305,7 @@ if(S.inv && S.inv['Space|Colored Astronaut']){
  }
  save();
 }
-const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(w<.01?5:3))+'%',cnt=b=>S.inv[key(b)]||0;
+const $=s=>document.querySelector(s),key=b=>b.pack+'|'+b.n,fmt=w=>(+w.toFixed(w<.01?5:3))+'%',cnt=b=>Math.max(0,Math.floor(Number(S.inv[key(b)])||0));
 let tab='shop',showFree=false,showPacks=true;
 const byCode=c=>ALL.find(b=>b.code===c)||FALL.find(b=>b.code===c);
 function setTab(t){tab=t;$('#n-shop').style.opacity=t==='shop'?1:.7;$('#n-col').style.opacity=t==='col'?1:.7;$('#ttl').textContent=t==='shop'?'Market':'My Blooks';render()}
@@ -272,28 +320,31 @@ function render(){
   m.innerHTML='<div class="grid">'+PM.map(p=>`<button class="card" style="--rim:${p.rim}" data-id="${p.id}" aria-label="${p.n} Pack, ${p.cost} tokens"><div class="art" style="--bg:${p.bg}">${pimg(p)}</div><div class="price"><span class="coin"></span>${p.cost}</div></button>`).join('')+'</div>';
   m.querySelectorAll('.card').forEach(b=>b.onclick=()=>packModal(P.find(p=>p.id===b.dataset.id)));return;
  }
- const tile=b=>{const n=cnt(b);return n?`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${bimg(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="Locked blook"><span class="lc">${lockSvg}</span></button>`};
- const ftile=b=>`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${COM.c}" data-c="${b.code}" aria-label="${b.n}, Common">${bimg(b)}</button>`;
+ const tile=b=>{const n=cnt(b);return n?`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}, ${rar(b.k).n}, owned ${n}">${lockerArt(b)}<span class="q">${n}</span></button>`:`<button class="bt l" disabled aria-label="Locked Blook"><span class="lc">${lockSvg}</span></button>`};
+ const ftile=b=>`<button class="bt ${S.av===b.code?'sel':''}" style="--c:${COM.c}" data-c="${b.code}" aria-label="${b.n}, Common">${lockerArt(b)}</button>`;
+ const chromas=ALL.filter(b=>b.k==='C'&&cnt(b)>0);
+ const chromaSection=chromas.length?`<h2 class="chroma-head">Chroma</h2><div class="bl chroma-list">${chromas.map(tile).join('')}</div>`:'';
  const free=!showFree?'':showPacks?F.map(f=>`<h2>${f.n} Pack</h2><div class="bl">${f.list.map(ftile).join('')}</div>`).join(''):FALL.map(ftile).join('');
- const pk=showPacks?PL.map(p=>`<h2>${p.n} Pack</h2><div class="bl">${p.list.map(tile).join('')}</div>`).join(''):PL.flatMap(p=>p.list).map(tile).join('');
+ const regular=showPacks?PL.map(p=>{const items=p.list.filter(b=>b.k!=='C');return items.length?`<h2>${p.n} Pack</h2><div class="bl">${items.map(tile).join('')}</div>`:''}).join(''):PL.flatMap(p=>p.list.filter(b=>b.k!=='C')).map(tile).join('');
+ const contents=showPacks?free+regular+chromaSection:`<div class="bl" style="margin-top:6px">${free+regular}</div>${chromaSection}`;
  m.innerHTML=`<div style="margin:-6px 0 16px;display:flex;gap:12px;flex-wrap:wrap"><button class="pill" id="sf" aria-pressed="${showFree}"><span class="ck">${showFree?'✓':''}</span>Show Free Blooks</button><button class="pill" id="sp" aria-pressed="${showPacks}"><span class="ck">${showPacks?'✓':''}</span>Show Packs</button></div>
- <div class="lpanel wide">${showPacks?free+pk:`<div class="bl" style="margin-top:6px">${free+pk}</div>`}</div>`;
+ <div class="lpanel wide">${contents}</div>`;
  $('#sf').onclick=()=>{showFree=!showFree;render()};$('#sp').onclick=()=>{showPacks=!showPacks;render()};
  m.querySelectorAll('.bt:not(.l)').forEach(t=>t.onclick=()=>blookModal(byCode(t.dataset.c)));
 }
 const show=(h,wide)=>{clr();$('#ov').style.background='';const sg=$('#stage');sg.onclick=null;sg.onkeydown=null;sg.removeAttribute('tabindex');sg.style.cssText='';$('#stage').className=wide?'wide':'';$('#stage').innerHTML=h;$('#ov').classList.add('on')};
-function close(){clr();$('#ov').style.background='';$('#stage').onclick=null;$('#stage').onkeydown=null;$('#stage').removeAttribute('tabindex');$('#ov').classList.remove('on');render()}
+function close(){if(revealLocked)return;clr();$('#ov').style.background='';$('#stage').onclick=null;$('#stage').onkeydown=null;$('#stage').removeAttribute('tabindex');$('#ov').classList.remove('on');render()}
 const xb=()=>`<button class="x" id="cx" aria-label="Close">✕</button>`;
 function blookModal(b){
- const fr=!!b.free,tot=fr?1:cnt(b),r=rar(b.k);let q=1;
+ const fr=!!b.free,tot=fr?1:Math.max(0,Math.floor(cnt(b))),r=rar(b.k);let q=1;
  const draw=()=>{
   const gs=gem(b.k).replace('width="42" height="42"','width="22" height="22"');
-  show(`<div class="pm bm"><div class="bmf" style="--rc:${r.c}"><span class="bgl">${img(b.pid+'-bg')}</span><div class="bmb">${bimg(b)}</div></div><div>${xb()}<h2>${b.n}</h2><div class="bsub">${b.pack} Pack</div>
+  show(`<div class="pm bm"><div class="bmf"><span class="bgl">${blookBackground(b.pid)}</span><div class="bmb">${bimg(b)}</div></div><div>${xb()}<h2>${b.n}</h2><div class="bsub">${b.pack} Pack</div>
   <div class="chips"><span class="pchip2">${gs}${r.n}</span>${fr?'':`<span class="pchip2"><span class="coin"></span>${r.v}</span>`}</div>
   ${fr?`<p class="note">Free blooks can't be sold.</p>`:`<div class="qr2"><input id="sq" type="number" min="1" max="${tot}" value="${q}" aria-label="Quantity to sell"><span>/ ${tot} total</span></div>
   <div class="qb">${[1,5,10].filter(n=>q+n<=tot).map(n=>`<button class="sb" data-a="${n}">+${n}</button>`).join('')}${tot>1&&q!==tot-1?'<button class="sb" data-m="1">One left</button>':''}<button class="sb" data-r="1" aria-label="Reset" ${q===1?'disabled':''}>↺</button></div>
   <button class="buy" id="sell">Sell ${q} for <span class="coin"></span> ${(q*r.v).toLocaleString()}</button>`}</div></div>`,true);
-  $('#cx').onclick=close;if(fr)return;
+  $('#cx').onclick=close;if(fr||tot<1)return;
   $('#sq').onchange=e=>{q=Math.max(1,Math.min(tot,Math.floor(+e.target.value)||1));draw()};
   document.querySelectorAll('#stage [data-a]').forEach(x=>x.onclick=()=>{q=Math.min(tot,q+ +x.dataset.a);draw()});
   const m=$('#stage [data-m]');if(m)m.onclick=()=>{q=tot-1;draw()};
@@ -304,7 +355,7 @@ function blookModal(b){
 function profile(){
  const own=[...PL.flatMap(p=>p.list).filter(b=>cnt(b)),...FALL];let pick=S.av;
  show(`<div class="pm one">${xb()}<h2>Profile</h2><label for="nm" style="font:400 22px 'Titan One'">Username</label><input class="nm" id="nm" maxlength="16" value="${S.name.replace(/"/g,'&quot;')}"><div style="font:400 22px 'Titan One';margin-top:16px">Choose your icon</div>
- ${own.length?`<div class="sc">${own.map(b=>`<button class="bt ${b.code===pick?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}">${bimg(b)}</button>`).join('')}</div>`:'<p class="note">Open some packs to unlock blooks you can use as your icon.</p>'}
+ ${own.length?`<div class="sc">${own.map(b=>`<button class="bt ${b.code===pick?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}">${lockerArt(b)}</button>`).join('')}</div>`:'<p class="note">Open some packs to unlock blooks you can use as your icon.</p>'}
  <div class="row" style="justify-content:flex-start"><button class="btn" id="sv">Save</button><button class="btn g" id="cc">Cancel</button></div></div>`,true);
  document.querySelectorAll('#stage .bt').forEach(t=>t.onclick=()=>{pick=t.dataset.c;document.querySelectorAll('#stage .bt').forEach(x=>x.classList.toggle('sel',x===t))});
  $('#cx').onclick=close;$('#cc').onclick=close;$('#nm').focus();
@@ -324,64 +375,99 @@ function packModal(p){
   $('#qi').onchange=e=>{qty=Math.max(1,Math.min(1000,Math.floor(+e.target.value)||1));draw()};
   document.querySelectorAll('#stage [data-d]').forEach(b=>b.onclick=()=>{qty=Math.max(1,Math.min(1000,qty+ +b.dataset.d));draw()});
   document.querySelectorAll('#stage [data-s]').forEach(b=>b.onclick=()=>{qty=+b.dataset.s;draw()});
-  $('#by').onclick=()=>{const b=$('#by');b.disabled=true;b.textContent='Buying...';setTimeout(()=>openPack(p,qty),500)};};
+  $('#by').onclick=()=>{const b=$('#by');b.disabled=true;b.textContent='Buying...';later(()=>openPack(p,qty),500)};};
  draw();
 }
-const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 function roll(p){const t0=p.list.reduce((a,b)=>a+b.w,0);let t=Math.random()*t0;for(const b of p.list){if(t<b.w)return b;t-=b.w}return p.list[0]}
-let T=[],IV=0,RAF=0;function clr(){T.forEach(clearTimeout);T=[];clearInterval(IV);cancelAnimationFrame(RAF)}
+let T=[],IV=0,RAF=0,revealLocked=false;function clr(){T.forEach(clearTimeout);T=[];clearInterval(IV);cancelAnimationFrame(RAF)}
 const later=(f,ms)=>T.push(setTimeout(f,ms));
 const PURPLE=['#4a1450','#431048','#3a0d3f','#551a5c'];
-const PAL={U:['#52d92f','#3cb524','#2a7d1a','#4cc82c'],R:['#2fa8f5','#1f84d6','#165ea3','#2a96e8'],E:['#e8503a','#c0351f','#822214','#d8452e'],L:['#ffbb33','#ff9419','#cc690c','#ffa826'],C:['#2ae0f5','#18b0cf','#0f7f9c','#22c8e0']};
-const GAP={U:'#14310d',R:'#0b2742',E:'#3a0e08',L:'#47280a',C:'#06303a'};
+const PAL={U:['#3cbd17','#258b0c','#176006','#4cce24'],R:['#1723ef','#101bb9','#07116f','#2635ff'],E:['#f02b20','#be1711','#790d0a','#ff3b2e'],L:['#ffa51c','#d97708','#884006','#ffc044'],C:['#22d9ef','#0fa6c6','#086b86','#43e8f7']};
+const GAP={U:'#10380b',R:'#050b4a',E:'#3d0907',L:'#482505',C:'#043141'};
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
-function shards(cv,cx,cy,pal,count,rainbow){
- const x=cv.getContext('2d'),Q=[];cv.width=innerWidth;cv.height=innerHeight;let f=0;
- const add=n=>{for(let i=0;i<n;i++)Q.push({x:cx+(Math.random()-.5)*200,y:cy-10,vx:(Math.random()-.5)*15,vy:-(6+Math.random()*14),r:Math.random()*6.28,vr:(Math.random()-.5)*.35,s:12+Math.random()*16,c:rainbow?`hsl(${Math.random()*360},85%,55%)`:rnd(pal)})};
- add(count);
- const loop=()=>{x.clearRect(0,0,cv.width,cv.height);if(f++<70)add(Math.ceil(count/60));
-  for(const q of Q){q.vy+=.34;q.x+=q.vx;q.y+=q.vy;q.vx*=.992;q.r+=q.vr;x.save();x.translate(q.x,q.y);x.rotate(q.r);x.beginPath();x.moveTo(0,-q.s/2);x.lineTo(q.s/2,q.s/2);x.lineTo(-q.s/2,q.s/2);x.closePath();x.fillStyle=q.c;x.fill();x.lineWidth=2.5;x.strokeStyle='rgba(0,0,0,.45)';x.stroke();x.restore()}
-  for(let i=Q.length-1;i>=0;i--)if(Q[i].y>cv.height+40)Q.splice(i,1);
-  if(Q.length||f<70)RAF=requestAnimationFrame(loop);else x.clearRect(0,0,cv.width,cv.height)};
- loop();
-}
 function openPack(p,n){
  if(S.tok<p.cost*n){packModal(p);return}
  S.tok-=p.cost*n;const pulls=[];
  for(let i=0;i<n;i++){const g=roll(p),fresh=!cnt(g);S.inv[key(g)]=cnt(g)+1;pulls.push({g,fresh})}
  save();$('#tok').textContent=S.tok.toLocaleString();play(p,pulls,0);
 }
-// Sequence from the recording: white flash -> dark purple tile grid, pack fades in and waits ->
-// click: top strip tears off, tiles wipe left-to-right into the rarity colour, pack drops away ->
-// blook card pops in, triangle shards burst up and fall -> click to continue / return to market.
-// Rarer pulls get extra build-up (pack shakes, tiles flicker) before the tear and more shards (my approximation).
+// The current Blooket opening uses rarity-colour square flashes (green, blue, red,
+// orange, light blue) and Blook artwork instead of the older triangle confetti.
+function gemBurst(st){
+ const layer=document.createElement('div');layer.className='gem-burst';
+ for(let i=0;i<34;i++){
+  const a=(Math.PI*2*i/34)+(Math.random()-.5)*.34;
+  const distance=145+Math.random()*330;
+  const shard=document.createElement('i');shard.className='gem-shard';
+  shard.style.setProperty('--tx',`${Math.cos(a)*distance}px`);
+  shard.style.setProperty('--ty',`${Math.sin(a)*distance}px`);
+  shard.style.setProperty('--rot',`${(Math.random()-.5)*220}deg`);
+  shard.style.setProperty('--scale',`${.55+Math.random()*.85}`);
+  shard.style.setProperty('--delay',`${Math.random()*180}ms`);
+  layer.appendChild(shard);
+ }
+ st.appendChild(layer);
+ later(()=>layer.remove(),1700);
+}
 function play(p,pulls,i){
- clr();const {g}=pulls[i],r=rar(g.k),ri=R.findIndex(x=>x.k===g.k),ov=$('#ov'),st=$('#stage'),k=reduced()?0:1,last=i+1>=pulls.length;
+ clr();
+ const {g,fresh}=pulls[i],r=rar(g.k),ri=R.findIndex(x=>x.k===g.k),ov=$('#ov'),st=$('#stage'),last=i+1>=pulls.length;
+ revealLocked=!!fresh;
  ov.classList.add('on');ov.style.background='#1f0624';
  st.className='op'+(ri>=3?' rays':'');st.style.cssText='';st.onkeydown=null;
  const cols=Math.max(6,Math.round(innerWidth/130)),w=innerWidth/cols,N=cols*(Math.ceil(innerHeight/w)+1);
  let tl='';for(let j=0;j<N;j++)tl+=`<i class="tl" style="background:${rnd(PURPLE)}"></i>`;
- st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd" style="--pb:${p.bg}"><span class="bgl">${img(p.id+'-bg')}</span><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><canvas id="cv"></canvas><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
+ st.innerHTML=`<div class="grid2" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:${w}px">${tl}</div><span class="corner2">${img(p.id+'-icon')}</span><div class="bagbox"><span class="bgi" style="--bag:${p.bag}">${img(p.code)}<b>${p.n} Pack</b><i class="strip"></i><i class="glow"></i></span></div><div class="rays2"></div><div class="cardw" id="cw"><div class="cd"><img class="cd-bg" src="${blookBackgroundSrc(g.pid)}" alt="" aria-hidden="true" onerror="this.style.display='none'"><div class="cd-shade"></div><div class="ct"><div class="cn">${g.n}</div><div class="cr" style="color:${r.c}">${r.n}</div></div>${bimg(g)}<div class="cp">${fmt(g.w)}</div></div></div><div class="hint" id="hint">Click to open</div>${pulls.length>1?`<div class="ctr">${i+1} / ${pulls.length}</div>`:''}`;
  const flash=()=>{const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')};
- if(i===0&&k)flash();
- const g2=st.querySelector('.grid2'),tls=[...g2.children],hint=$('#hint'),pal=PAL[g.k];
- let phase=0,wiped=false,shown=false;
- const wipe=()=>{if(wiped)return;wiped=true;clearInterval(IV);g2.style.setProperty('--gap',GAP[g.k]);if(g.k==='C')g2.classList.add('ch');
-  tls.forEach((t,j)=>{t.style.transitionDelay=((j%cols)*38+Math.random()*90)*k+'ms';t.style.background=rnd(pal)});
-  later(()=>tls.forEach(t=>t.style.transitionDelay='0ms'),(cols*38+400)*k);
-  IV=setInterval(()=>{for(let q=0;q<5;q++)rnd(tls).style.background=rnd(pal);if(Math.random()<.12){const t=rnd(tls);t.style.background=rnd(PURPLE);later(()=>t.style.background=rnd(pal),1600)}},230)};
- const fire=()=>{if(shown)return;shown=true;st.classList.add('show');$('#live').textContent=`You got ${g.n}, ${r.n}`;
-  if(ri>=2)flash();if(!k)return;const cw=Math.min(Math.max(220,innerWidth*.3),470);
-  shards($('#cv'),innerWidth/2,innerHeight/2+cw/2,pal,Math.round(70*[1,1.3,1.8,2.6,3.2][ri]),g.k==='C')};
- const settle=()=>{T.forEach(clearTimeout);T=[];clearInterval(IV);st.classList.add('tear');wipe();fire();phase=2;hint.textContent='Click anywhere to continue'};
- const go=()=>{phase=1;hint.textContent='';const pre=[0,350,800,1400,1900][ri]*k;
-  if(pre){st.classList.add('shake');IV=setInterval(()=>{for(let q=0;q<8;q++)rnd(tls).style.background=rnd(['#7a2a85','#8d3a98',...PURPLE])},120)}
-  later(()=>{clearInterval(IV);st.classList.add('tear')},pre);
-  later(wipe,pre+90*k);later(fire,pre+520*k);
-  later(()=>{phase=2;hint.textContent='Click anywhere to continue'},pre+(1300+ri*300)*k)};
- st.onclick=()=>{if(phase===0)go();else if(phase===1)settle();else if(!last)play(p,pulls,i+1);else close()};
- st.setAttribute('tabindex','0');st.focus();st.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();st.onclick()}};
+ if(i===0)flash();
+ const g2=st.querySelector('.grid2'),tls=[...g2.children],hint=$('#hint');
+ let phase=0,shown=false;
+ const progression=R.slice(0,ri+1);
+ const flashStep=step=>{
+  const code=step.k;
+  g2.style.setProperty('--gap',GAP[code]);
+  g2.classList.toggle('ch',code==='C');
+  tls.forEach((t,j)=>{
+   t.style.transitionDelay=`${(j%cols)*22+Math.random()*65}ms`;
+   t.style.background=rnd(PAL[code]);
+  });
+ };
+ const showCard=()=>{
+  if(shown)return;shown=true;
+  clearInterval(IV);
+  const finalStep=progression[progression.length-1];
+  flashStep(finalStep);
+  st.classList.add('tear');
+  later(()=>{
+   st.classList.add('show');
+   $('#live').textContent=`You got ${g.n}, ${r.n}`;
+   if(ri>=2)flash();
+   gemBurst(st);
+  },420);
+  // Keep the result on screen until its reveal motion has finished.
+  later(()=>{phase=2;revealLocked=false;hint.textContent='Click anywhere to continue';hint.classList.add('waiting')},1550);
+ };
+ const startAnimation=()=>{
+  if(phase!==0)return;
+  phase=1;
+  hint.textContent=fresh?'Opening...':'Click to skip';
+  if(fresh)hint.classList.add('waiting');
+  progression.forEach((step,index)=>later(()=>flashStep(step),index*560));
+  later(showCard,progression.length*560+80);
+ };
+ const skipDuplicate=()=>{
+  if(phase!==1||fresh||shown)return;
+  T.forEach(clearTimeout);T=[];clearInterval(IV);
+  showCard();
+ };
+ st.onclick=()=>{
+  if(phase===0){startAnimation();return}
+  if(phase===1){if(!fresh)skipDuplicate();return}
+  if(phase===2){if(!last)play(p,pulls,i+1);else close()}
+ };
+ st.setAttribute('tabindex','0');st.focus();
+ st.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();st.onclick()}};
 }
-addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!revealLocked)close()});
 setTab('shop');
 </script></body></html>
