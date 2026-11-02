@@ -208,11 +208,11 @@ const P=[
 {id:'space',n:'Space',cost:20,bg:'#14124a',bag:'linear-gradient(150deg,#e8e4f8,#a8a0d8)',rim:'#26226a',
  b:{U:same(['Earth','Meteor','Stars','Alien'],18.75),R:same(['Planet','UFO'],10),E:[['Spaceship',4.5]],L:[['Astronaut',.45]],C:[['Pink Astronaut',.05/7],['Yellow Astronaut',.05/7],['Black Astronaut',.05/7],['Orange Astronaut',.05/7],['Red Astronaut',.05/7],['Brown Astronaut',.05/7],['Green Astronaut',.05/7]]}},
 {id:'medieval',n:'Medieval',cost:20,bg:'#6a6a6e',bag:'linear-gradient(150deg,#8a5a3a,#4a2a1a)',rim:'#8a8a8e',
- b:{U:same(['Witch','Wizard','Elf','Fairy','Slime Monster'],13.4),R:same(['Jester','Dragon','Queen'],9),E:[['Unicorn',5]],L:[['King',1]],C:[]}},
+ b:{U:same(['Witch','Wizard','Elf','Fairy','Slime Monster'],13.4),R:same(['Jester','Dragon','Queen'],9),E:[['Unicorn',5]],L:[['King',1]],C:[['Dragon King',.04]]}},
 {id:'wonderland',n:'Wonderland',cost:20,bg:'#4a2a7a',bag:'linear-gradient(150deg,#2a1a4a,#0a0a1a)',rim:'#6a3aa0',
  b:{U:[['Two of Spades',15.2],['Eat Me',15],['Drink Me',15],['Alice',15],['Queen of Hearts',15]],R:same(['Dormouse','White Rabbit','Cheshire Cat'],6.5),E:[['Caterpillar',2.5],['Mad Hatter',2.5]],L:[['King of Hearts',.3]],C:[]}},
 {id:'breakfast',n:'Breakfast',cost:20,bg:'#d86a22',bag:'linear-gradient(150deg,#f0e0c0,#d8a870)',rim:'#e87a30',
- b:{U:same(['Toast','Cereal','Yogurt','Breakfast Combo','Orange Juice','Milk'],12.5),R:same(['Waffle','Pancakes'],9),E:[['French Toast',5],['Pizza',2]],L:[],C:[]}}
+ b:{U:same(['Toast','Cereal','Yogurt','Breakfast Combo','Orange Juice','Milk'],12.5),R:same(['Waffle','Pancakes'],9),E:[['French Toast',5],['Pizza',2]],L:[['Steak',.6]],C:[['Apple Juice',.05]]}}
 ];
 P.forEach(p=>{p.code=p.id+'-pack';p.list=R.flatMap(r=>(p.b[r.k]||[]).map(([n,w])=>({n,k:r.k,w,displayW:(p.id==='space'&&r.k==='C'&&/Astronaut$/.test(n))?.05:w,dropGroup:(p.id==='space'&&r.k==='C'&&/Astronaut$/.test(n))?'Colored Astronaut':null,pack:p.n,pid:p.id,code:p.id+'_'+n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')})))});
 const ALL=P.flatMap(p=>p.list);
@@ -282,7 +282,11 @@ const BLOOK_ICON_URLS={
  'Orange Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/orangeAstronaut.svg',
  'Red Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/redAstronaut.svg',
  'Brown Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003831/Blooks/brownAstronaut.svg',
- 'Green Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/greenAstronaut.svg'
+ 'Green Astronaut':'https://res.cloudinary.com/blooket/image/upload/v1613003832/Blooks/greenAstronaut.svg',
+ // User-provided PNGs in the local images folder.
+ 'Steak':DIR+'Steak.png',
+ 'Apple Juice':DIR+'Apple-Juice.png',
+ 'Dragon King':DIR+'Dragon-King.png'
 };
 const blookIconSlug=b=>BLOOK_ICON_SLUGS[b.n]||b.n.toLowerCase().replace(/[^a-z0-9]/g,'');
 const blookIconSrc=b=>BLOOK_ICON_URLS[b.n]||`https://ac.blooket.com/marketassets/blooks/${blookIconSlug(b)}.svg`;
