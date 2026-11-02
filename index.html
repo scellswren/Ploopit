@@ -454,15 +454,13 @@ function codeMenu(){
  const redeem=()=>{
   const typed=$('#code-value').value.trim(),msg=$('#code-msg');
   if(typed!==REWARD_CODE){msg.textContent='That code is not valid.';return}
-  if(S.redeemedCodes.includes(REWARD_CODE)){msg.textContent='This code has already been redeemed on this save.';$('#redeem-now').disabled=true;return}
-  // One copy of every market and free Blook, including each obtainable Astronaut colour.
+  // This reward code is reusable. Each redemption adds 800,000 tokens
+  // and ensures the player owns at least one copy of every market and free Blook.
   for(const b of [...ALL,...FALL])S.inv[key(b)]=Math.max(1,cnt(b));
   S.tok+=800000;
-  S.redeemedCodes.push(REWARD_CODE);
   save();
   $('#tok').textContent=S.tok.toLocaleString();
-  msg.textContent='Code redeemed! You received every Blook and 800,000 tokens.';
-  $('#redeem-now').disabled=true;
+  msg.textContent='Code redeemed! You received every Blook and another 800,000 tokens. You can use this code again.';
  };
  $('#redeem-now').onclick=redeem;
  $('#code-value').addEventListener('keydown',e=>{if(e.key==='Enter')redeem()});
