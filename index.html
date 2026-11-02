@@ -366,7 +366,7 @@ const bimg=b=>{
 const lockerArt=b=>`<span class="locker-art">${bimg(b)}</span>`;
 const pimg=p=>`<span class="pi" data-l="${p.n} Pack">${img(p.code)}</span><span class="pic">${img(p.id+'-icon')}</span>`;
 let S={tok:500,inv:{},name:'Player',av:''};try{const x=JSON.parse(localStorage.getItem('mk4')||localStorage.getItem('mk3')||'null');if(x&&typeof x==='object')S=Object.assign(S,x)}catch(e){}
-S.tok=Math.max(0,Math.floor(Number(S.tok)||0));S.inv=S.inv&&typeof S.inv==='object'?S.inv:{};S.name=String(S.name||'Player').slice(0,16);S.av=String(S.av||'');
+S.tok=Math.max(0,Math.floor(Number(S.tok)||0));S.inv=S.inv&&typeof S.inv==='object'?S.inv:{};S.name=String(S.name||'Player').slice(0,16);S.av=String(S.av||'');S.redeemedCodes=Array.isArray(S.redeemedCodes)?S.redeemedCodes.filter(x=>typeof x==='string'):[];
 const save=()=>{try{localStorage.setItem('mk4',JSON.stringify(S))}catch(e){}};
 // Convert older generic Astronaut Chroma copies into the seven obtainable colour variants.
 if(S.inv && S.inv['Space|Colored Astronaut']){
@@ -435,10 +435,54 @@ function profile(){
  const own=[...PL.flatMap(p=>p.list).filter(b=>cnt(b)),...FALL];let pick=S.av;
  show(`<div class="pm one">${xb()}<h2>Profile</h2><label for="nm" style="font:400 22px 'Titan One'">Username</label><input class="nm" id="nm" maxlength="16" value="${S.name.replace(/"/g,'&quot;')}"><div style="font:400 22px 'Titan One';margin-top:16px">Choose your icon</div>
  ${own.length?`<div class="sc">${own.map(b=>`<button class="bt owned ${b.code===pick?'sel':''}" style="--c:${rar(b.k).c}" data-c="${b.code}" aria-label="${b.n}">${lockerArt(b)}</button>`).join('')}</div>`:'<p class="note">Open some packs to unlock blooks you can use as your icon.</p>'}
- <div class="row" style="justify-content:flex-start"><button class="btn" id="sv">Save</button><button class="btn g" id="cc">Cancel</button></div></div>`,true);
+ <div class="row" style="justify-content:flex-start;margin-top:14px"><button class="btn g" id="code-open">Redeem Code</button><button class="btn r" id="reset-open">Reset Account</button></div>
+ <div class="row" style="justify-content:flex-start;margin-top:12px"><button class="btn" id="sv">Save</button><button class="btn g" id="cc">Cancel</button></div></div>`,true);
  document.querySelectorAll('#stage .bt').forEach(t=>t.onclick=()=>{pick=t.dataset.c;document.querySelectorAll('#stage .bt').forEach(x=>x.classList.toggle('sel',x===t))});
  $('#cx').onclick=close;$('#cc').onclick=close;$('#nm').focus();
  $('#sv').onclick=()=>{S.name=($('#nm').value.trim()||'Player').slice(0,16);S.av=pick;save();close()};
+ $('#code-open').onclick=codeMenu;
+ $('#reset-open').onclick=resetConfirm;
+}
+const REWARD_CODE='HjwmEod#EH#49fns';
+function codeMenu(){
+ show(`<div class="pm one">${xb()}<h2>Redeem Code</h2><p class="note">Enter a code to claim its reward.</p><label for="code-value" style="font:400 22px 'Titan One'">Code</label><input class="nm" id="code-value" maxlength="80" autocomplete="off" spellcheck="false" placeholder="Enter code"><p id="code-msg" class="note" aria-live="polite"></p><div class="row" style="justify-content:flex-start"><button class="btn" id="redeem-now">Redeem</button><button class="btn g" id="code-back">Back</button></div></div>`,true);
+ $('#cx').onclick=close;$('#code-back').onclick=profile;
+ const redeem=()=>{
+  const typed=$('#code-value').value.trim(),msg=$('#code-msg');
+  if(typed!==REWARD_CODE){msg.textContent='That code is not valid.';return}
+  if(S.redeemedCodes.includes(REWARD_CODE)){msg.textContent='This code has already been redeemed on this save.';$('#redeem-now').disabled=true;return}
+  // One copy of every market and free Blook, including each obtainable Astronaut colour.
+  for(const b of [...ALL,...FALL])S.inv[key(b)]=Math.max(1,cnt(b));
+  S.tok+=800000;
+  S.redeemedCodes.push(REWARD_CODE);
+  save();
+  $('#tok').textContent=S.tok.toLocaleString();
+  msg.textContent='Code redeemed! You received every Blook and 800,000 tokens.';
+  $('#redeem-now').disabled=true;
+ };
+ $('#redeem-now').onclick=redeem;
+ $('#code-value').addEventListener('keydown',e=>{if(e.key==='Enter')redeem()});
+ $('#code-value').focus();
+}
+function resetConfirm(){
+ show(`<div class="pm one">${xb()}<h2>Reset account?</h2><p class="note">This will erase your tokens, Blooks, username and selected icon, and restore the market to its starting state. This cannot be undone.</p><div class="row"><button class="btn r" id="reset-yes">Yes, continue</button><button class="btn g" id="reset-no">Cancel</button></div></div>`,true);
+ $('#cx').onclick=close;$('#reset-no').onclick=profile;$('#reset-yes').onclick=resetWordChallenge;
+}
+function resetWordChallenge(){
+ const words=['Chair','Carrot','Igloo','Ballsack','Leap','pneumonoultramicroscopicsilicovolcanoconiosis'];
+ const required=words[Math.floor(Math.random()*words.length)];
+ show(`<div class="pm one">${xb()}<h2>Final confirmation</h2><p class="note">To confirm the reset, type this word exactly:</p><div style="font:400 clamp(22px,4vw,32px) 'Titan One';overflow-wrap:anywhere;text-align:center;margin:8px 0 18px">${required}</div><input class="nm" id="reset-word" autocomplete="off" spellcheck="false" placeholder="Type the word above"><p id="reset-msg" class="note" aria-live="polite"></p><div class="row"><button class="btn r" id="reset-final">Reset everything</button><button class="btn g" id="reset-cancel">Cancel</button></div></div>`,true);
+ $('#cx').onclick=close;$('#reset-cancel').onclick=profile;
+ const finish=()=>{
+  if($('#reset-word').value.trim().toLowerCase()!==required.toLowerCase()){$('#reset-msg').textContent='The word does not match. Try again.';return}
+  S={tok:500,inv:{},name:'Player',av:'',redeemedCodes:[]};save();
+  showFree=false;showPacks=true;tab='shop';revealLocked=false;clr();
+  $('#ov').style.background='';$('#stage').innerHTML='';$('#stage').className='';$('#stage').onclick=null;$('#stage').onkeydown=null;$('#stage').removeAttribute('tabindex');$('#ov').classList.remove('on');
+  render();
+ };
+ $('#reset-final').onclick=finish;
+ $('#reset-word').addEventListener('keydown',e=>{if(e.key==='Enter')finish()});
+ $('#reset-word').focus();
 }
 function marketDropRateRows(p){
  const rows=[],seen=new Set();
